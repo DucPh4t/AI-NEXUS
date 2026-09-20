@@ -198,10 +198,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
                   100% HITL
                 </div>
                 <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-amber-300/80 mt-0.5 font-semibold">
-                  Thẩm định Kỹ sư
+                  Kỹ sư duyệt 100%
                 </div>
                 <p className="text-[11px] text-white/60 mt-0.5 line-clamp-1">
-                  Kỹ sư kiểm soát từng đỉnh
+                  Kỹ sư kiểm soát và phê duyệt cuối
                 </p>
               </div>
 
@@ -328,7 +328,16 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
               </div>
 
               {/* Interactive Vector CAD Blueprint SVG (Dark Drafting Canvas) */}
-              <div className="relative my-4 flex items-center justify-center">
+              <div className="relative my-4 flex items-center justify-center overflow-hidden rounded-xl">
+                {/* AI Laser Scan Beam Effect */}
+                {activeTab === 'ai' && (
+                  <motion.div
+                    initial={{ top: '0%' }}
+                    animate={{ top: ['0%', '98%', '0%'] }}
+                    transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+                    className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#ffc474] to-transparent shadow-[0_0_12px_rgba(255,196,116,0.85)] pointer-events-none z-20"
+                  />
+                )}
                 <svg
                   viewBox="0 0 800 380"
                   className="w-full max-w-[720px] h-auto drop-shadow-xl"
