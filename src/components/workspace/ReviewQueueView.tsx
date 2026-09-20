@@ -12,6 +12,7 @@ import {
   Filter
 } from 'lucide-react';
 import { RoomEntity, DoorEntity } from '../../types';
+import { formatArea } from '../../utils/formatters';
 
 interface ReviewQueueViewProps {
   rooms: RoomEntity[];
@@ -134,11 +135,11 @@ export const ReviewQueueView: React.FC<ReviewQueueViewProps> = ({
                   </div>
 
                   <div className="flex items-center gap-3 text-[11px] font-mono text-white/40">
-                    <span>Diện tích sàn: <strong className="text-white/70 font-normal">{room.floorArea} m²</strong></span>
+                    <span>Diện tích sàn: <strong className="text-white/80 font-mono tabular-nums">{formatArea(room.floorArea, 2)}</strong></span>
                     <span>•</span>
-                    <span>Diện tích sơn: <strong className="text-white/70 font-normal">{room.netPaintArea} m²</strong></span>
+                    <span>Diện tích sơn: <strong className="text-white/80 font-mono tabular-nums">{formatArea(room.netPaintArea, 2)}</strong></span>
                     <span>•</span>
-                    <span>Lớp CAD: <strong className="text-white/70 font-normal">{room.layer}</strong></span>
+                    <span>Lớp CAD: <strong className="text-white/70 font-mono">{room.layer}</strong></span>
                   </div>
                 </div>
 

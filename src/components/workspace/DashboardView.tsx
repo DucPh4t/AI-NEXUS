@@ -13,6 +13,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { ProjectInfo } from '../../types';
+import { formatArea, formatDecimal } from '../../utils/formatters';
 
 interface DashboardViewProps {
   projects: ProjectInfo[];
@@ -80,10 +81,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <span className="text-[11px] font-mono font-semibold text-white/60">PHÒNG ĐÃ BÓC TÁCH</span>
             <Layers className="w-4 h-4 text-sky-400" />
           </div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono mt-2">
-            1,842
+          <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono mt-2 tabular-nums">
+            1.842
           </div>
-          <div className="text-xs text-white/40 mt-1 font-sans">3,921 Cửa đã khấu trừ</div>
+          <div className="text-xs text-white/40 mt-1 font-sans">3.921 Cửa đã khấu trừ</div>
         </div>
 
         <div className="p-5 rounded-2xl bg-[#161822] border border-white/10 shadow-sm hover:border-white/20 transition-colors">
@@ -91,8 +92,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <span className="text-[11px] font-mono font-semibold text-white/60">ĐỘ TIN CẬY TRUNG BÌNH</span>
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           </div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono mt-2">
-            96.8%
+          <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono mt-2 tabular-nums">
+            96,8%
           </div>
           <div className="text-xs text-white/40 mt-1 font-sans">Khép kín hình học vector</div>
         </div>
@@ -194,15 +195,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <div className="flex items-center gap-6 self-end md:self-auto shrink-0 font-mono text-xs">
                   <div className="text-right hidden sm:block">
                     <div className="text-[11px] text-white/40 uppercase">DIỆN TÍCH SƠN</div>
-                    <div className="text-sm font-bold text-[#ffc474]">
-                      {proj.totalArea.toLocaleString()} m²
+                    <div className="text-sm font-bold text-[#ffc474] font-mono tabular-nums">
+                      {formatArea(proj.totalArea, 0)}
                     </div>
                   </div>
 
                   <div className="text-right hidden sm:block">
                     <div className="text-[11px] text-white/40 uppercase">ĐỘ TIN CẬY</div>
-                    <div className="text-sm font-bold text-emerald-400">
-                      {proj.avgConfidence}%
+                    <div className="text-sm font-bold text-emerald-400 font-mono tabular-nums">
+                      {formatDecimal(proj.avgConfidence, 1)}%
                     </div>
                   </div>
 

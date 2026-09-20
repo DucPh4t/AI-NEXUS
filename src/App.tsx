@@ -66,8 +66,21 @@ export function App() {
     rooms.filter((r) => r.status === 'Needs Review').length + 
     doors.filter((d) => d.status === 'Needs Review').length;
 
-  // Selected room object
-  const selectedRoom = rooms.find((r) => r.id === selectedRoomId) || null;
+  // Selected room object & index
+  const selectedRoomIndex = rooms.findIndex((r) => r.id === selectedRoomId);
+  const selectedRoom = selectedRoomIndex >= 0 ? rooms[selectedRoomIndex] : null;
+
+  const handleNextRoom = () => {
+    if (rooms.length === 0) return;
+    const nextIdx = selectedRoomIndex >= 0 ? (selectedRoomIndex + 1) % rooms.length : 0;
+    handleSelectRoom(rooms[nextIdx].id);
+  };
+
+  const handlePrevRoom = () => {
+    if (rooms.length === 0) return;
+    const prevIdx = selectedRoomIndex >= 0 ? (selectedRoomIndex - 1 + rooms.length) % rooms.length : 0;
+    handleSelectRoom(rooms[prevIdx].id);
+  };
 
   // Helper to add audit event
   const addAuditEvent = (action: string, target: string, detail: string) => {
@@ -142,11 +155,15 @@ export function App() {
   };
 
   // Room interaction handlers
-  const handleSelectRoom = (roomId: string) => {
+  const handleSelectRoom = (roomId: string | null) => {
     setSelectedRoomId(roomId);
-    const room = rooms.find((r) => r.id === roomId);
-    if (room) {
-      setHighlightedSourceHandle(room.sourceHandle);
+    if (roomId) {
+      const room = rooms.find((r) => r.id === roomId);
+      if (room) {
+        setHighlightedSourceHandle(room.sourceHandle);
+      }
+    } else {
+      setHighlightedSourceHandle(null);
     }
   };
 
@@ -390,6 +407,10 @@ export function App() {
           {/* Right Inspector Panel */}
           <InspectorPanel
             room={selectedRoom}
+            roomIndex={selectedRoomIndex >= 0 ? selectedRoomIndex : undefined}
+            totalRooms={rooms.length}
+            onPrevRoom={handlePrevRoom}
+            onNextRoom={handleNextRoom}
             onConfirm={handleConfirmRoom}
             onCorrect={handleCorrectRoom}
             onReject={handleRejectRoom}

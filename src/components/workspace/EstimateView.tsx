@@ -12,6 +12,13 @@ import {
   Edit2
 } from 'lucide-react';
 import { RoomEntity, CalculationRules, EstimateVersion } from '../../types';
+import { 
+  formatDecimal, 
+  formatArea, 
+  formatLength, 
+  formatCurrency, 
+  formatNumberOnly 
+} from '../../utils/formatters';
 
 interface EstimateViewProps {
   rooms: RoomEntity[];
@@ -52,7 +59,7 @@ export const EstimateView: React.FC<EstimateViewProps> = ({
   };
 
   return (
-    <div className="h-full overflow-y-auto p-6 md:p-8 max-w-7xl mx-auto space-y-6 text-white">
+    <div className="h-full overflow-y-auto p-6 md:p-8 max-w-7xl mx-auto space-y-6 text-white scrollbar-thin scrollbar-thumb-white/10">
       {/* Top Header & Versioning Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div>
@@ -81,13 +88,13 @@ export const EstimateView: React.FC<EstimateViewProps> = ({
               </select>
             </div>
           </div>
-          <p className="text-sm text-white/60 mt-1 max-w-3xl font-sans-tight">
+          <p className="text-xs sm:text-sm text-white/60 mt-1.5 max-w-2xl font-sans leading-relaxed text-pretty">
             Bảng tiên lượng dự toán (BoQ) minh bạch được tổng hợp trực tiếp từ hình học vector phòng CAD đã thẩm định và quy tắc khấu trừ chuẩn.
           </p>
         </div>
 
         {/* Right Actions */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
           <button
             onClick={onOpenRules}
             className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white text-xs font-semibold transition-colors cursor-pointer"
@@ -114,44 +121,44 @@ export const EstimateView: React.FC<EstimateViewProps> = ({
         </div>
       </div>
 
-      {/* Top High-Contrast KPI Cards */}
+      {/* Top High-Contrast KPI Cards with Unified Format */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-5 rounded-2xl border border-white/10 bg-[#161822] shadow-sm">
           <div className="text-[11px] font-mono text-white/50 font-semibold uppercase">TỔNG DIỆN TÍCH SƠN</div>
-          <div className="text-3xl font-extrabold text-white font-mono mt-2">
-            {totalPaintArea.toLocaleString()} <span className="text-sm font-normal text-white/40">m²</span>
+          <div className="text-3xl font-extrabold text-white font-mono mt-2 tabular-nums">
+            {formatDecimal(totalPaintArea, 2)} <span className="text-sm font-normal text-white/40">m²</span>
           </div>
           <div className="text-xs text-white/40 mt-2 font-mono">
-            Diện tích sàn: {totalFloorArea.toFixed(1)} m²
+            Diện tích sàn: {formatArea(totalFloorArea, 1)}
           </div>
         </div>
 
         <div className="p-5 rounded-2xl border border-white/10 bg-[#161822] shadow-sm">
           <div className="text-[11px] font-mono text-white/50 font-semibold uppercase">DỰ TOÁN KINH PHÍ</div>
-          <div className="text-3xl font-extrabold text-[#ffc474] font-mono mt-2">
-            {totalCost.toLocaleString()} <span className="text-sm font-normal text-white/40">₫</span>
+          <div className="text-3xl font-extrabold text-[#ffc474] font-mono mt-2 tabular-nums">
+            {formatNumberOnly(totalCost)} <span className="text-sm font-normal text-[#ffc474]/70">₫</span>
           </div>
           <div className="text-xs text-white/40 mt-2 font-mono">
-            Bình quân: {Math.round(totalCost / totalPaintArea).toLocaleString()} ₫/m²
+            Bình quân: {formatCurrency(Math.round(totalCost / (totalPaintArea || 1)))}/m²
           </div>
         </div>
 
         <div className="p-5 rounded-2xl border border-white/10 bg-[#161822] shadow-sm">
           <div className="text-[11px] font-mono text-white/50 font-semibold uppercase">HỆ SƠN NỘI THẤT</div>
-          <div className="text-3xl font-extrabold text-white font-mono mt-2">
-            {interiorArea.toLocaleString()} <span className="text-sm font-normal text-white/40">m²</span>
+          <div className="text-3xl font-extrabold text-white font-mono mt-2 tabular-nums">
+            {formatDecimal(interiorArea, 1)} <span className="text-sm font-normal text-white/40">m²</span>
           </div>
-          <div className="text-xs text-white/40 mt-2 font-mono">
+          <div className="text-xs text-white/40 mt-2 font-sans">
             1 Sơn lót + 2 Sơn phủ mờ Dulux
           </div>
         </div>
 
         <div className="p-5 rounded-2xl border border-white/10 bg-[#161822] shadow-sm">
           <div className="text-[11px] font-mono text-white/50 font-semibold uppercase">NGOẠI THẤT & HỘP KT</div>
-          <div className="text-3xl font-extrabold text-white font-mono mt-2">
-            {exteriorArea.toLocaleString()} <span className="text-sm font-normal text-white/40">m²</span>
+          <div className="text-3xl font-extrabold text-white font-mono mt-2 tabular-nums">
+            {formatDecimal(exteriorArea, 1)} <span className="text-sm font-normal text-white/40">m²</span>
           </div>
-          <div className="text-xs text-white/40 mt-2 font-mono">
+          <div className="text-xs text-white/40 mt-2 font-sans">
             Acrylic chống thấm cao cấp
           </div>
         </div>
@@ -164,25 +171,25 @@ export const EstimateView: React.FC<EstimateViewProps> = ({
             BẢNG TIÊN LƯỢNG BÓC TÁCH CHI TIẾT TỪNG PHÒNG // NHẤP NGUỒN ĐỂ XEM CAD
           </span>
           <span className="text-xs font-mono text-white/40">
-            Quy chuẩn: Cao {rules.defaultWallHeight}m · Hao hụt {rules.wasteFactorPct}%
+            Quy chuẩn: Cao {formatLength(rules.defaultWallHeight, 2)} · Hao hụt {rules.wasteFactorPct}%
           </span>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs font-mono">
+          <table className="w-full text-xs font-mono">
             <thead className="bg-[#161822] border-b border-white/10 text-white/50 uppercase text-[10px]">
               <tr>
-                <th className="px-4 py-3">Mã phòng</th>
-                <th className="px-4 py-3">Nguồn CAD</th>
-                <th className="px-4 py-3">Diện tích sàn</th>
-                <th className="px-4 py-3">Chu vi</th>
-                <th className="px-4 py-3">Tường thô</th>
-                <th className="px-4 py-3">Khấu trừ</th>
-                <th className="px-4 py-3">Diện tích sơn</th>
-                <th className="px-4 py-3">Đơn giá</th>
-                <th className="px-4 py-3">Thành tiền</th>
-                <th className="px-4 py-3">Trạng thái</th>
-                <th className="px-4 py-3 text-right">Xem CAD</th>
+                <th className="px-4 py-3 text-left whitespace-nowrap">Mã phòng</th>
+                <th className="px-4 py-3 text-left whitespace-nowrap">Nguồn CAD</th>
+                <th className="px-4 py-3 text-right whitespace-nowrap">Diện tích sàn</th>
+                <th className="px-4 py-3 text-right whitespace-nowrap">Chu vi</th>
+                <th className="px-4 py-3 text-right whitespace-nowrap">Tường thô</th>
+                <th className="px-4 py-3 text-right whitespace-nowrap">Khấu trừ</th>
+                <th className="px-4 py-3 text-right whitespace-nowrap">Diện tích sơn</th>
+                <th className="px-4 py-3 text-right whitespace-nowrap">Đơn giá</th>
+                <th className="px-4 py-3 text-right whitespace-nowrap">Thành tiền</th>
+                <th className="px-4 py-3 text-center whitespace-nowrap">Trạng thái</th>
+                <th className="px-4 py-3 text-right whitespace-nowrap">Xem CAD</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/10 text-white/80">
@@ -193,42 +200,48 @@ export const EstimateView: React.FC<EstimateViewProps> = ({
 
                 return (
                   <tr key={room.id} className="hover:bg-white/5 transition-colors">
-                    <td className="px-4 py-3 font-bold text-white">
-                      <div className="text-[#ffc474]">{room.code}</div>
-                      <div className="text-[10px] text-white/40 font-sans font-normal truncate max-w-[140px]">
+                    <td className="px-4 py-3 font-bold text-white whitespace-nowrap text-left">
+                      <div className="text-[#ffc474] font-mono">{room.code}</div>
+                      <div className="text-[11px] text-white/50 font-sans font-normal truncate max-w-[170px]">
                         {room.name}
                       </div>
                     </td>
 
-                    <td className="px-4 py-3 text-sky-400 font-semibold">
+                    <td className="px-4 py-3 text-sky-400 font-semibold whitespace-nowrap text-left">
                       <button
                         onClick={() => onJumpToCad(room.id)}
-                        className="hover:underline flex items-center gap-1 text-left cursor-pointer"
+                        className="hover:underline flex items-center gap-1 text-left cursor-pointer font-mono"
                         title="Phóng tới thực thể trên bản vẽ CAD"
                       >
                         <span>{room.sourceHandle}</span>
                       </button>
                     </td>
 
-                    <td className="px-4 py-3">{room.floorArea.toFixed(2)} m²</td>
-                    <td className="px-4 py-3">{room.perimeter.toFixed(1)} m</td>
-                    <td className="px-4 py-3">{room.grossWallArea.toFixed(2)} m²</td>
-                    <td className="px-4 py-3 text-rose-400">
-                      -{(room.doorDeductions + room.windowDeductions).toFixed(2)} m²
+                    <td className="px-4 py-3 text-right whitespace-nowrap font-mono tabular-nums">
+                      {formatArea(room.floorArea, 2)}
+                    </td>
+                    <td className="px-4 py-3 text-right whitespace-nowrap font-mono tabular-nums">
+                      {formatLength(room.perimeter, 1)}
+                    </td>
+                    <td className="px-4 py-3 text-right whitespace-nowrap font-mono tabular-nums">
+                      {formatArea(room.grossWallArea, 2)}
+                    </td>
+                    <td className="px-4 py-3 text-right whitespace-nowrap font-mono tabular-nums text-rose-400">
+                      -{formatArea(room.doorDeductions + room.windowDeductions, 2)}
                     </td>
 
-                    <td className="px-4 py-3 font-bold text-[#ffc474]">
-                      {room.netPaintArea.toFixed(2)} m²
+                    <td className="px-4 py-3 text-right whitespace-nowrap font-bold text-[#ffc474] font-mono tabular-nums">
+                      {formatArea(room.netPaintArea, 2)}
                     </td>
 
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-right whitespace-nowrap font-mono tabular-nums">
                       {isEditing ? (
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center justify-end gap-1">
                           <input
                             type="number"
                             value={tempRate}
                             onChange={(e) => setTempRate(parseInt(e.target.value) || 0)}
-                            className="w-20 px-1 py-0.5 border border-white/30 rounded text-right bg-[#161822] text-xs font-mono text-white"
+                            className="w-24 px-1 py-0.5 border border-white/30 rounded text-right bg-[#161822] text-xs font-mono text-white"
                           />
                           <button
                             onClick={() => handleSaveRate(room.id)}
@@ -243,42 +256,42 @@ export const EstimateView: React.FC<EstimateViewProps> = ({
                             setEditingRoomId(room.id);
                             setTempRate(room.unitRate);
                           }}
-                          className="flex items-center gap-1 hover:text-[#ffc474] group cursor-pointer text-white"
+                          className="inline-flex items-center gap-1 hover:text-[#ffc474] group cursor-pointer text-white ml-auto"
                           title="Nhấp để sửa đơn giá"
                         >
-                          <span>{room.unitRate.toLocaleString()} ₫</span>
+                          <span>{formatCurrency(room.unitRate)}</span>
                           <Edit2 className="w-3 h-3 text-white/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </button>
                       )}
                     </td>
 
-                    <td className="px-4 py-3 font-bold text-emerald-400">
-                      {room.totalCost.toLocaleString()} ₫
+                    <td className="px-4 py-3 text-right whitespace-nowrap font-bold text-emerald-400 font-mono tabular-nums">
+                      {formatCurrency(room.totalCost)}
                     </td>
 
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-center whitespace-nowrap">
                       <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                        className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold whitespace-nowrap ${
                           isNeedsReview
-                            ? 'bg-amber-500/20 text-[#ffc474] border border-amber-500/40'
+                            ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
                             : isConfirmed
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                            : 'bg-sky-500/20 text-sky-400 border border-sky-500/40'
+                            ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                            : 'bg-sky-500/15 text-sky-400 border border-sky-500/30'
                         }`}
                       >
                         {room.status === 'Confirmed'
-                          ? 'Đã Duyệt'
+                          ? '✓ Đã duyệt'
                           : room.status === 'Needs Review'
-                          ? 'Cần Thẩm Định'
+                          ? '⚠️ Cần thẩm định'
                           : room.status === 'Corrected'
-                          ? 'Đã Hiệu Chỉnh'
+                          ? '✏️ Đã hiệu chỉnh'
                           : room.status === 'Rejected'
-                          ? 'Đã Từ Chối'
-                          : 'Đã Phát Hiện'}
+                          ? '✕ Đã từ chối'
+                          : '✓ Đã phát hiện'}
                       </span>
                     </td>
 
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-4 py-3 text-right whitespace-nowrap">
                       <button
                         onClick={() => onJumpToCad(room.id)}
                         className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#ffc474] hover:text-black border border-white/10 text-white text-[11px] font-semibold transition-all cursor-pointer"
@@ -297,3 +310,4 @@ export const EstimateView: React.FC<EstimateViewProps> = ({
     </div>
   );
 };
+

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Check, Edit3, ArrowRight, RotateCcw, AlertTriangle, Layers } from 'lucide-react';
 import { RoomEntity } from '../../types';
+import { formatArea, formatCurrency, formatDecimal } from '../../utils/formatters';
 
 interface GeometryEditorModalProps {
   room: RoomEntity | null;
@@ -75,8 +76,8 @@ export const GeometryEditorModal: React.FC<GeometryEditorModalProps> = ({
               <span className="font-semibold text-white/80">
                 ĐỘ DỊCH CHUYỂN BÙ RANH GIỚI
               </span>
-              <span className="font-bold text-[#ffc474]">
-                {offsetDelta >= 0 ? `+${offsetDelta}` : offsetDelta} m²
+              <span className="font-bold text-[#ffc474] tabular-nums">
+                {offsetDelta >= 0 ? `+${formatDecimal(offsetDelta, 1)}` : formatDecimal(offsetDelta, 1)} m²
               </span>
             </div>
             <input
@@ -88,10 +89,10 @@ export const GeometryEditorModal: React.FC<GeometryEditorModalProps> = ({
               onChange={(e) => setOffsetDelta(parseFloat(e.target.value))}
               className="w-full accent-[#ffc474] cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-white/40">
-              <span>Thu hẹp -5.0 m²</span>
-              <span>Khớp chuẩn 0.0 m²</span>
-              <span>Mở rộng +10.0 m²</span>
+            <div className="flex justify-between text-[10px] text-white/40 font-mono">
+              <span>Thu hẹp -5,0 m²</span>
+              <span>Khớp chuẩn 0,0 m²</span>
+              <span>Mở rộng +10,0 m²</span>
             </div>
           </div>
 
@@ -103,7 +104,7 @@ export const GeometryEditorModal: React.FC<GeometryEditorModalProps> = ({
               step="0.1"
               value={wallHeight}
               onChange={(e) => setWallHeight(parseFloat(e.target.value) || 3.2)}
-              className="w-24 px-2 py-1 border border-white/20 rounded bg-white/5 text-right font-bold text-[#ffc474] focus:outline-none"
+              className="w-24 px-2 py-1 border border-white/20 rounded bg-white/5 text-right font-bold text-[#ffc474] focus:outline-none tabular-nums"
             />
           </div>
 
@@ -117,30 +118,30 @@ export const GeometryEditorModal: React.FC<GeometryEditorModalProps> = ({
             <div className="grid grid-cols-2 gap-3 text-[11px]">
               <div className="bg-[#161822] p-2.5 rounded-lg border border-white/10">
                 <span className="text-white/40 block">DIỆN TÍCH SÀN:</span>
-                <span className="text-white/40 line-through mr-1">
-                  {originalFloorArea.toFixed(2)} m²
+                <span className="text-white/40 line-through mr-1 tabular-nums">
+                  {formatArea(originalFloorArea, 2)}
                 </span>
-                <span className="font-bold text-[#ffc474]">
-                  → {newFloorArea.toFixed(2)} m²
+                <span className="font-bold text-[#ffc474] tabular-nums">
+                  → {formatArea(newFloorArea, 2)}
                 </span>
               </div>
 
               <div className="bg-[#161822] p-2.5 rounded-lg border border-white/10">
                 <span className="text-white/40 block">DIỆN TÍCH SƠN THỰC:</span>
-                <span className="text-white/40 line-through mr-1">
-                  {room.netPaintArea.toFixed(2)} m²
+                <span className="text-white/40 line-through mr-1 tabular-nums">
+                  {formatArea(room.netPaintArea, 2)}
                 </span>
-                <span className="font-bold text-emerald-400">
-                  → {newPaintArea.toFixed(2)} m²
+                <span className="font-bold text-emerald-400 tabular-nums">
+                  → {formatArea(newPaintArea, 2)}
                 </span>
               </div>
             </div>
 
             <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
               <span className="text-white/60 font-sans">Kinh phí sơn phòng:</span>
-              <span className="font-bold text-white">
-                {room.totalCost.toLocaleString()} ₫ →{' '}
-                <span className="text-[#ffc474]">{newCost.toLocaleString()} ₫</span>
+              <span className="font-bold text-white tabular-nums">
+                {formatCurrency(room.totalCost)}{' '}→{' '}
+                <span className="text-[#ffc474]">{formatCurrency(newCost)}</span>
               </span>
             </div>
           </div>
