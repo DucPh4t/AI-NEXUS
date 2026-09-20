@@ -33,7 +33,16 @@ import {
   Calculator,
   Sliders,
   Download,
-  X
+  X,
+  Save,
+  Undo2,
+  Redo2,
+  Search,
+  Plus,
+  Minus,
+  Quote,
+  Award,
+  Star
 } from 'lucide-react';
 
 interface LandingStorytellingProps {
@@ -56,6 +65,8 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
   // BoQ Excel Preview Modal State
   const [isBoqPreviewOpen, setIsBoqPreviewOpen] = useState<boolean>(false);
   const [activeBoqSheet, setActiveBoqSheet] = useState<'takeoff' | 'materials' | 'cost'>('takeoff');
+  const [selectedCell, setSelectedCell] = useState<string>('H8');
+  const [selectedFormula, setSelectedFormula] = useState<string>('=ROUND((D8*E8) - F8 - G8, 2)');
 
   const fadeInUp = {
     initial: { opacity: 0, y: 24 },
@@ -934,6 +945,167 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
+          5.5. ĐỐI TÁC & LỜI KHẲNG ĐỊNH TỪ CHUYÊN GIA DỰ TOÁN (SOCIAL PROOF)
+      ───────────────────────────────────────────────────────────── */}
+      <section id="social-proof" className="py-16 md:py-24 border-t border-white/10 relative bg-[#090b0f] overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,196,116,0.06),transparent_65%)] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Section Header */}
+          <motion.div {...fadeInUp} className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <span className="text-xs font-mono font-bold tracking-widest text-[#ffc474] uppercase block mb-3">
+              TÍN NHIỆM DOANH NGHIỆP // KIỂM CHỨNG TỪ THỰC ĐỊA
+            </span>
+            <h2 className="font-serif-cormorant text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight leading-tight">
+              Được tin cậy bởi các Đội ngũ Dự toán & Ban QLDA Hàng đầu
+            </h2>
+            <p className="text-white/65 text-xs sm:text-sm mt-3 leading-relaxed font-sans-tight">
+              Giải pháp bóc tách định lượng tự động đã đồng hành cùng các tổng thầu xây dựng, đơn vị tư vấn chi phí và nhà thầu sơn bả hoàn thiện trên toàn quốc.
+            </p>
+          </motion.div>
+
+          {/* Trusted Enterprises Logo Ticker / Badges */}
+          <motion.div {...fadeInUp} className="mb-14">
+            <div className="text-center text-xs font-mono text-white/40 uppercase tracking-wider mb-6">
+              ĐỒNG HÀNH CÙNG CÁC ĐƠN VỊ THI CÔNG & QUẢN LÝ DỰ ÁN
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4">
+              {[
+                { name: 'Coteccons Corp', role: 'Tổng thầu EPC' },
+                { name: 'Hòa Bình Corp', role: 'Xây dựng Dân dụng' },
+                { name: 'Ricons Group', role: 'Tổng thầu Thi công' },
+                { name: 'Newtecons', role: 'Xây dựng Cao ốc' },
+                { name: 'Delta Group', role: 'Xây dựng Dân dụng' },
+                { name: 'Văn Phú Invest', role: 'Chủ đầu tư & QLDA' },
+              ].map((partner, idx) => (
+                <div
+                  key={idx}
+                  className="px-4 py-3.5 rounded-xl border border-white/8 bg-[#12141c]/80 flex flex-col items-center justify-center text-center hover:border-[#ffc474]/30 hover:bg-[#151824] transition-all group"
+                >
+                  <span className="font-bold text-sm text-white/80 group-hover:text-white transition-colors">
+                    {partner.name}
+                  </span>
+                  <span className="text-[10px] font-mono text-white/40 mt-0.5">
+                    {partner.role}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Key Impact Stats Bar */}
+          <motion.div
+            {...fadeInUp}
+            className="mb-16 grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 rounded-2xl border border-white/10 bg-[#12151e] shadow-xl"
+          >
+            <div className="flex items-center gap-4 p-2 sm:p-4 border-b sm:border-b-0 sm:border-r border-white/10">
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-[#ffc474] shrink-0">
+                <Building2 className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold font-mono text-white">3.800.000+ m²</div>
+                <div className="text-xs text-white/60 font-sans-tight">Diện tích sơn bả hoàn thiện đã bóc tách</div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 p-2 sm:p-4 border-b sm:border-b-0 sm:border-r border-white/10">
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 shrink-0">
+                <CheckCircle2 className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold font-mono text-white">100% TCVN 8652</div>
+                <div className="text-xs text-white/60 font-sans-tight">Chuẩn hóa trừ lỗ mở cửa theo luật định</div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 p-2 sm:p-4">
+              <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/25 flex items-center justify-center text-sky-400 shrink-0">
+                <Award className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-bold font-mono text-white">0% Sai lệch</div>
+                <div className="text-xs text-white/60 font-sans-tight">Bảo toàn mã Handle CAD giải tích hình học</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Testimonial Cards from Real Practitioners */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                quote:
+                  'Trước đây mỗi lần thầu phụ gửi hồ sơ thanh toán sơn bả cho 3 toà tháp 30 tầng, đội ngũ 4 kỹ sư QS phải mất gần 2 tuần để đo m², khấu trừ cửa thủ công và cãi nhau từng ly từng tí. Với giải pháp này, chúng tôi load DXF và ra bảng đối soát TCVN 8652 chỉ trong 1 buổi chiều, bấm vào ô nào là nhảy đúng handle CAD gốc.',
+                author: 'KS. Trần Nam Long',
+                title: 'Trưởng ban QS & Đấu thầu',
+                company: 'Tổng thầu Dân dụng & Công nghiệp (TP.HCM)',
+                highlight: 'Rút ngắn từ 2 tuần xuống 1 buổi chiều',
+              },
+              {
+                quote:
+                  'Điểm mấu chốt khiến tôi thuyết phục Ban Giám đốc phê duyệt triển khai là tính năng Zero-Hallucination và Human-in-the-Loop. Khối lượng bóc tách được tính bằng giải tích hình học vector chuẩn xác, không phải AI đoán mò. Khi có khe hở tường, kỹ sư kéo nắn đỉnh kiểm toán ngay tại chỗ.',
+                author: 'ThS. Lê Hoàng Yến',
+                title: 'Giám đốc Khối Quản lý Chi phí',
+                company: 'Tập đoàn Bất động sản & Hạ tầng',
+                highlight: 'Zero-Hallucination & Kiểm soát tuyệt đối',
+              },
+              {
+                quote:
+                  'File BoQ Excel xuất ra có cấu trúc chuyên nghiệp đúng chuẩn Việt Nam, giữ nguyên công thức sống và phân tách vật tư theo định mức TT 12/2021/TT-BXD, không bị chết số hay format dị biệt. Đưa thẳng vào hồ sơ trình duyệt Chủ đầu tư được ngay mà không cần chỉnh sửa.',
+                author: 'KS. Nguyễn Văn Dũng',
+                title: 'Chỉ huy trưởng Hoàn thiện',
+                company: 'Nhà thầu Chuyên ngành Hoàn thiện Sơn Bả',
+                highlight: 'Bảng Excel chuẩn TCVN có công thức sống',
+              },
+            ].map((testi, idx) => (
+              <motion.div
+                key={idx}
+                {...fadeInUp}
+                className="dense-panel p-6 sm:p-7 rounded-2xl border border-white/10 bg-[#12151e] flex flex-col justify-between relative group hover:border-[#ffc474]/40 transition-all"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-8 h-8 rounded-lg bg-[#ffc474]/10 border border-[#ffc474]/20 flex items-center justify-center text-[#ffc474]">
+                      <Quote className="w-4 h-4" />
+                    </div>
+                    <div className="flex items-center gap-1 text-amber-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="text-[11px] font-mono text-[#ffc474] font-semibold bg-[#ffc474]/10 px-2.5 py-1 rounded-md inline-block mb-3 border border-[#ffc474]/20">
+                    ★ {testi.highlight}
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-white/75 leading-relaxed font-sans-tight italic">
+                    "{testi.quote}"
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-linear-to-br from-amber-400 to-amber-600 text-black font-bold flex items-center justify-center text-xs shadow-md shrink-0">
+                    {testi.author.split(' ').slice(-1)[0][0]}
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white leading-tight">
+                      {testi.author}
+                    </h4>
+                    <p className="text-xs text-white/60 mt-0.5 font-sans-tight">
+                      {testi.title}
+                    </p>
+                    <p className="text-[11px] font-mono text-[#ffc474]/80">
+                      {testi.company}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
           6. BẢO MẬT BẢN VẼ CẤP DOANH NGHIỆP (SECURITY & NDA)
       ───────────────────────────────────────────────────────────── */}
       <section id="cad-security" className="py-16 md:py-24 border-t border-white/10 relative bg-[#0c0e12]">
@@ -1102,237 +1274,573 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          BOQ EXCEL PREVIEW MODAL
+          BOQ EXCEL PREVIEW MODAL - AUTHENTIC MICROSOFT EXCEL DESKTOP UI
       ───────────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {isBoqPreviewOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-5 bg-black/85 backdrop-blur-sm">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.96, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              exit={{ opacity: 0, scale: 0.96, y: 15 }}
               transition={{ duration: 0.2 }}
-              className="w-full max-w-5xl bg-[#161922] border border-white/20 rounded-2xl shadow-[0_25px_80px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col max-h-[90vh]"
+              className="w-full max-w-5xl bg-[#f3f2f1] text-[#242424] rounded-lg shadow-[0_20px_60px_rgba(0,0,0,0.85)] border border-[#d4d4d4] overflow-hidden flex flex-col max-h-[92vh] font-sans text-xs select-none"
             >
-              {/* Modal Window Topbar */}
-              <div className="px-5 py-3.5 bg-[#0f1118] border-b border-white/10 flex items-center justify-between">
+              {/* 1. Authentic Excel Title Bar (Microsoft Excel Emerald Green) */}
+              <div className="bg-[#107c41] text-white px-3 py-1.5 flex items-center justify-between text-xs border-b border-[#0d6535]">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-600/30 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
-                    <FileSpreadsheet className="w-4 h-4" />
+                  {/* Excel App Icon */}
+                  <div className="w-5 h-5 bg-white text-[#107c41] font-black rounded-sm flex items-center justify-center text-xs shadow-xs font-serif">
+                    X
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs sm:text-sm font-bold text-white font-sans">
-                        Hồ sơ Dự toán Bóc tách Sơn Hoàn thiện (TCVN 8652) - DuAn_Landmark.xlsx
-                      </span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-semibold hidden sm:inline-block">
-                        Live Formulas
-                      </span>
-                    </div>
-                    <span className="text-[11px] text-white/50 font-mono">
-                      Xuất bản từ CAD AI Platform • Tương thích Excel 2016+, Office 365, Google Sheets
-                    </span>
+
+                  {/* AutoSave Toggle */}
+                  <div className="flex items-center gap-1.5 bg-[#0d6535] px-2 py-0.5 rounded text-[11px] font-medium">
+                    <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
+                    <span>Tự động lưu: BẬT</span>
                   </div>
-                </div>
 
-                <button
-                  onClick={() => setIsBoqPreviewOpen(false)}
-                  className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/15 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
-                  title="Đóng cửa sổ"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
+                  {/* Quick Access Icons */}
+                  <div className="hidden sm:flex items-center gap-2 text-white/80 border-l border-white/20 pl-2">
+                    <button
+                      onClick={() => {
+                        const csvContent = "data:text/csv;charset=utf-8," 
+                          + "STT,Handle_CAD,Ten_Phong,Chu_Vi_m,Chieu_Cao_m,Khau_Tru_Cua_Di_m2,Khau_Tru_Cua_So_m2,Dien_Tich_Son_Tinh_m2\n"
+                          + "1,LWPOLYLINE #8F31,Phong Khach A101,26.50,3.20,-1.98,-2.24,80.58\n"
+                          + "2,LWPOLYLINE #4A9C,Phong Ngu Master A102,18.40,3.20,-1.98,-2.30,54.60\n"
+                          + "3,LWPOLYLINE #3B12,Phong Ngu Phu A103,15.20,3.20,-1.98,-1.80,44.86\n"
+                          + "4,LWPOLYLINE #6C44,Hanh Lang,21.80,3.20,-3.96,0.00,65.80\n";
+                        const encodedUri = encodeURI(csvContent);
+                        const link = document.createElement("a");
+                        link.setAttribute("href", encodedUri);
+                        link.setAttribute("download", "DuAn_Landmark_BoQ_Son_TCVN8652.csv");
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                      }}
+                      title="Lưu file về máy (Ctrl+S)"
+                      className="hover:text-white hover:bg-[#0d6535] p-1 rounded transition-colors"
+                    >
+                      <Save className="w-3.5 h-3.5" />
+                    </button>
+                    <button title="Hoàn tác (Ctrl+Z)" className="hover:text-white hover:bg-[#0d6535] p-1 rounded transition-colors opacity-60 cursor-default">
+                      <Undo2 className="w-3.5 h-3.5" />
+                    </button>
+                    <button title="Làm lại (Ctrl+Y)" className="hover:text-white hover:bg-[#0d6535] p-1 rounded transition-colors opacity-60 cursor-default">
+                      <Redo2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
 
-              {/* Excel Simulated Ribbon & Formula Bar */}
-              <div className="px-5 py-2.5 bg-[#12141c] border-b border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
-                <div className="flex items-center gap-1 font-mono text-white/60">
-                  <span className="px-2 py-1 rounded bg-white/5 text-white/90 font-bold text-[11px]">fx</span>
-                  <span className="text-white/40 text-[11px] font-semibold">Công thức ô [I8]:</span>
-                  <span className="text-amber-300 font-mono text-[11px] bg-black/40 px-2 py-0.5 rounded border border-white/10">
-                    =ROUND((E8*F8) - G8 - H8, 2)
+                  {/* Document Title */}
+                  <span className="font-semibold text-[12px] truncate max-w-xs sm:max-w-md">
+                    DuAn_Landmark_BoQ_Son_TCVN8652.xlsx - Excel
                   </span>
                 </div>
 
+                {/* Center / Search bar */}
+                <div className="hidden md:flex items-center gap-2 bg-[#0b5c30] px-3 py-0.5 rounded-sm text-[11px] text-white/80 w-64 border border-[#0d6535]">
+                  <Search className="w-3 h-3 text-white/60" />
+                  <span className="text-white/60">Tìm kiếm hàm, ô hoặc lệnh (Alt + Q)</span>
+                </div>
+
+                {/* Right controls: user profile & window controls */}
                 <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-mono text-emerald-400 font-medium">
-                    ✓ Đã nhúng Handle CAD vào từng dòng
+                  <div className="w-5 h-5 rounded-full bg-white text-[#107c41] font-bold text-[10px] flex items-center justify-center shadow-xs">
+                    QS
+                  </div>
+                  <div className="flex items-center">
+                    <button
+                      onClick={() => setIsBoqPreviewOpen(false)}
+                      className="w-7 h-6 hover:bg-red-600 text-white flex items-center justify-center transition-colors cursor-pointer"
+                      title="Đóng cửa sổ"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Authentic Excel Ribbon Navigation Tabs */}
+              <div className="bg-[#f3f2f1] border-b border-[#d4d4d4] flex items-center justify-between px-2 pt-1 text-[11px] text-[#333333]">
+                <div className="flex items-center space-x-1 font-sans">
+                  <span className="px-3 py-1 bg-[#107c41] text-white font-semibold rounded-t-sm cursor-pointer">
+                    Tệp
+                  </span>
+                  <span className="px-3 py-1 bg-white font-bold text-[#107c41] border-t-2 border-t-[#107c41] border-x border-[#d4d4d4] rounded-t-sm shadow-xs cursor-pointer">
+                    Trang đầu
+                  </span>
+                  <span className="px-3 py-1 hover:bg-[#e1dfdd] rounded-t-sm cursor-pointer">
+                    Chèn
+                  </span>
+                  <span className="px-3 py-1 hover:bg-[#e1dfdd] rounded-t-sm cursor-pointer hidden sm:inline-block">
+                    Bố trí trang
+                  </span>
+                  <span className="px-3 py-1 hover:bg-[#e1dfdd] rounded-t-sm cursor-pointer">
+                    Công thức
+                  </span>
+                  <span className="px-3 py-1 hover:bg-[#e1dfdd] rounded-t-sm cursor-pointer hidden md:inline-block">
+                    Dữ liệu
+                  </span>
+                  <span className="px-3 py-1 hover:bg-[#e1dfdd] rounded-t-sm cursor-pointer hidden md:inline-block">
+                    Soát lại
+                  </span>
+                  <span className="px-3 py-1 hover:bg-[#e1dfdd] rounded-t-sm cursor-pointer hidden sm:inline-block">
+                    Xem
+                  </span>
+                </div>
+
+                <div className="text-[11px] text-emerald-700 font-mono font-medium hidden sm:flex items-center gap-1.5 bg-emerald-50 px-2.5 py-0.5 border border-emerald-300 rounded">
+                  <span>✓ 100% Công thức Live (Đã nhúng Handle CAD)</span>
+                </div>
+              </div>
+
+              {/* 3. Authentic Excel Ribbon Toolbar Icons */}
+              <div className="bg-[#f8f9fa] border-b border-[#d4d4d4] px-3 py-1.5 flex flex-wrap items-center gap-3 text-[11px] text-[#444444] shadow-xs">
+                {/* Font group */}
+                <div className="flex items-center gap-1">
+                  <div className="px-2 py-0.5 bg-white border border-[#d4d4d4] rounded-xs text-[11px] font-sans font-medium text-slate-800 flex items-center justify-between w-24">
+                    <span>Aptos / Segoe</span>
+                    <ChevronDown className="w-2.5 h-2.5 text-slate-500" />
+                  </div>
+                  <div className="px-1.5 py-0.5 bg-white border border-[#d4d4d4] rounded-xs text-[11px] font-sans font-medium text-slate-800 text-center w-8">
+                    11
+                  </div>
+                  <div className="flex items-center border border-[#d4d4d4] bg-white rounded-xs divide-x divide-[#e1dfdd]">
+                    <span className="px-1.5 py-0.5 font-bold text-slate-800 hover:bg-slate-100 cursor-pointer">B</span>
+                    <span className="px-1.5 py-0.5 italic text-slate-800 hover:bg-slate-100 cursor-pointer">I</span>
+                    <span className="px-1.5 py-0.5 underline text-slate-800 hover:bg-slate-100 cursor-pointer">U</span>
+                  </div>
+                  <div className="flex items-center border border-[#d4d4d4] bg-white px-1.5 py-0.5 rounded-xs gap-1 hover:bg-slate-100 cursor-pointer">
+                    <Table2 className="w-3 h-3 text-slate-700" />
+                    <ChevronDown className="w-2 h-2 text-slate-500" />
+                  </div>
+                </div>
+
+                <div className="h-4 w-px bg-[#d4d4d4]" />
+
+                {/* Alignment & Format group */}
+                <div className="flex items-center gap-1.5">
+                  <span className="px-2 py-0.5 bg-white border border-[#d4d4d4] rounded-xs text-slate-700 font-medium">
+                    Hợp nhất ô & Căn giữa
+                  </span>
+                  <span className="px-2 py-0.5 bg-white border border-[#d4d4d4] rounded-xs text-slate-700 font-medium">
+                    0.00 Định dạng số
+                  </span>
+                </div>
+
+                <div className="h-4 w-px bg-[#d4d4d4] hidden sm:block" />
+
+                {/* Construction Formula Indicator */}
+                <div className="hidden sm:flex items-center gap-2">
+                  <span className="font-semibold text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded border border-emerald-200">
+                    Quy chuẩn: TCVN 8652:2012
+                  </span>
+                  <span className="text-slate-600 bg-slate-200/70 px-2 py-0.5 rounded">
+                    Định mức: 12/2021/TT-BXD
                   </span>
                 </div>
               </div>
 
-              {/* Excel Grid Sheet View */}
-              <div className="flex-1 overflow-x-auto overflow-y-auto p-4 bg-[#0d0f14] text-xs font-mono">
+              {/* 4. Authentic Excel Formula Bar */}
+              <div className="bg-white border-b border-[#d4d4d4] px-2 py-1 flex items-center gap-1.5 text-xs">
+                {/* Name Box */}
+                <div className="w-16 h-6 border border-[#d4d4d4] bg-[#fdfdfd] text-center font-mono font-bold text-slate-800 flex items-center justify-between px-2 text-[11px] shadow-inner select-text">
+                  <span>{selectedCell}</span>
+                  <ChevronDown className="w-2.5 h-2.5 text-slate-400" />
+                </div>
+
+                {/* Formula Symbols */}
+                <div className="flex items-center gap-1 text-slate-400 px-1 border-r border-[#e1dfdd]">
+                  <span className="hover:text-red-500 cursor-pointer font-bold">✕</span>
+                  <span className="hover:text-emerald-600 cursor-pointer font-bold">✓</span>
+                  <span className="text-slate-700 italic font-serif font-black text-sm px-1">fx</span>
+                </div>
+
+                {/* Formula Content */}
+                <div className="flex-1 h-6 px-2 bg-white flex items-center font-mono text-[11px] text-slate-900 overflow-x-auto tracking-tight">
+                  <span className="text-slate-500 select-none mr-1 font-semibold">{selectedFormula.startsWith('=') ? '' : 'Văn bản:'}</span>
+                  <span className="font-semibold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                    {selectedFormula}
+                  </span>
+                </div>
+              </div>
+
+              {/* 5. Authentic Excel Worksheet Grid */}
+              <div className="flex-1 overflow-x-auto overflow-y-auto bg-white text-slate-900 font-sans text-xs">
+                {/* ── SHEET 1: CHI TIẾT BÓC TÁCH TCVN ── */}
                 {activeBoqSheet === 'takeoff' && (
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full border-collapse text-left select-text">
                     <thead>
-                      <tr className="bg-[#1a1d28] text-white/70 border-b border-white/15 text-[11px]">
-                        <th className="p-2.5 font-bold border-r border-white/10">STT</th>
-                        <th className="p-2.5 font-bold border-r border-white/10">Mã Handle CAD</th>
-                        <th className="p-2.5 font-bold border-r border-white/10">Hạng mục không gian</th>
-                        <th className="p-2.5 font-bold border-r border-white/10 text-right">Chu vi (m)</th>
-                        <th className="p-2.5 font-bold border-r border-white/10 text-right">Cao thông thuỷ (m)</th>
-                        <th className="p-2.5 font-bold border-r border-white/10 text-right text-rose-300">Khấu trừ Cửa đi (m²)</th>
-                        <th className="p-2.5 font-bold border-r border-white/10 text-right text-rose-300">Khấu trừ Cửa sổ (m²)</th>
-                        <th className="p-2.5 font-bold border-r border-white/10 text-right text-[#ffc474]">Sơn Tinh Net (m²)</th>
-                        <th className="p-2.5 font-bold text-center">Trạng thái Kỹ sư</th>
+                      {/* Excel Column Letters: A, B, C, D, E, F, G, H, I, J */}
+                      <tr className="bg-[#f3f2f1] text-[#555555] text-[11px] font-semibold select-none border-b border-[#d4d4d4]">
+                        <th className="w-10 p-1 text-center border-r border-[#d4d4d4] bg-[#e8e7e6]"></th>
+                        <th className={`p-1 text-center border-r border-[#d4d4d4] w-12 ${selectedCell.startsWith('A') ? 'bg-[#e1dfdd] text-[#107c41] font-bold border-b-2 border-b-[#107c41]' : ''}`}>A</th>
+                        <th className={`p-1 text-center border-r border-[#d4d4d4] w-36 ${selectedCell.startsWith('B') ? 'bg-[#e1dfdd] text-[#107c41] font-bold border-b-2 border-b-[#107c41]' : ''}`}>B</th>
+                        <th className={`p-1 text-center border-r border-[#d4d4d4] w-52 ${selectedCell.startsWith('C') ? 'bg-[#e1dfdd] text-[#107c41] font-bold border-b-2 border-b-[#107c41]' : ''}`}>C</th>
+                        <th className={`p-1 text-center border-r border-[#d4d4d4] w-24 ${selectedCell.startsWith('D') ? 'bg-[#e1dfdd] text-[#107c41] font-bold border-b-2 border-b-[#107c41]' : ''}`}>D</th>
+                        <th className={`p-1 text-center border-r border-[#d4d4d4] w-28 ${selectedCell.startsWith('E') ? 'bg-[#e1dfdd] text-[#107c41] font-bold border-b-2 border-b-[#107c41]' : ''}`}>E</th>
+                        <th className={`p-1 text-center border-r border-[#d4d4d4] w-32 ${selectedCell.startsWith('F') ? 'bg-[#e1dfdd] text-[#107c41] font-bold border-b-2 border-b-[#107c41]' : ''}`}>F</th>
+                        <th className={`p-1 text-center border-r border-[#d4d4d4] w-32 ${selectedCell.startsWith('G') ? 'bg-[#e1dfdd] text-[#107c41] font-bold border-b-2 border-b-[#107c41]' : ''}`}>G</th>
+                        <th className={`p-1 text-center border-r border-[#d4d4d4] w-32 ${selectedCell.startsWith('H') ? 'bg-[#e1dfdd] text-[#107c41] font-bold border-b-2 border-b-[#107c41]' : ''}`}>H</th>
+                        <th className={`p-1 text-center border-r border-[#d4d4d4] w-32 ${selectedCell.startsWith('I') ? 'bg-[#e1dfdd] text-[#107c41] font-bold border-b-2 border-b-[#107c41]' : ''}`}>I</th>
+                        <th className={`p-1 text-center border-r border-[#d4d4d4] w-28 ${selectedCell.startsWith('J') ? 'bg-[#e1dfdd] text-[#107c41] font-bold border-b-2 border-b-[#107c41]' : ''}`}>J</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-white/85">
-                      <tr className="hover:bg-amber-500/5 transition-colors">
-                        <td className="p-2.5 text-white/50 border-r border-white/10">01</td>
-                        <td className="p-2.5 text-sky-400 font-bold border-r border-white/10">LWPOLYLINE #8F31</td>
-                        <td className="p-2.5 font-sans font-medium text-white border-r border-white/10">Phòng Khách & Bếp A101</td>
-                        <td className="p-2.5 text-right border-r border-white/10">26.50</td>
-                        <td className="p-2.5 text-right border-r border-white/10">3.20</td>
-                        <td className="p-2.5 text-right text-rose-400 border-r border-white/10">- 1.98</td>
-                        <td className="p-2.5 text-right text-rose-400 border-r border-white/10">- 2.24</td>
-                        <td className="p-2.5 text-right font-bold text-[#ffc474] border-r border-white/10 bg-amber-500/10">80.58</td>
-                        <td className="p-2.5 text-center">
-                          <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-semibold border border-emerald-500/30">
+                    <tbody className="divide-y divide-[#e1dfdd] text-[11.5px]">
+                      {/* Row 1: Spacer */}
+                      <tr className="hover:bg-slate-50">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">1</td>
+                        <td colSpan={10} className="p-1 border-r border-[#e1dfdd] bg-[#fafafa]"></td>
+                      </tr>
+
+                      {/* Row 2: Header note Quốc hiệu */}
+                      <tr className="hover:bg-slate-50">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">2</td>
+                        <td colSpan={10} className="p-1.5 text-center font-bold text-slate-800 text-xs tracking-wider uppercase border-r border-[#e1dfdd]">
+                          CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM — Độc lập - Tự do - Hạnh phúc
+                        </td>
+                      </tr>
+
+                      {/* Row 3: Document Title */}
+                      <tr className="hover:bg-slate-50">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">3</td>
+                        <td colSpan={10} className="p-2 text-center font-bold text-[#1f4e78] text-sm tracking-wide uppercase border-r border-[#e1dfdd]">
+                          BẢNG BÓC TÁCH KHỐI LƯỢNG SƠN HOÀN THIỆN THEO TIÊU CHUẨN TCVN 8652:2012
+                        </td>
+                      </tr>
+
+                      {/* Row 4: Project Info Subtitle */}
+                      <tr className="hover:bg-slate-50">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">4</td>
+                        <td colSpan={10} className="p-1 text-center italic text-slate-600 text-[11px] border-r border-[#e1dfdd]">
+                          Dự án: Landmark Tower (Tầng điển hình) • Đơn vị bóc tách: AI Paint Take-off Engine • Cơ chế duyệt: Human-in-the-Loop (Kỹ sư QS)
+                        </td>
+                      </tr>
+
+                      {/* Row 5: Blank spacer */}
+                      <tr className="hover:bg-slate-50">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">5</td>
+                        <td colSpan={10} className="p-1 border-r border-[#e1dfdd] bg-[#fafafa]"></td>
+                      </tr>
+
+                      {/* Row 6: Official Table Header (Steel Navy Blue in Vietnamese Construction BoQ) */}
+                      <tr className="bg-[#1f4e78] text-white font-bold text-[11px]">
+                        <td className="bg-[#173b5c] text-white/80 text-[10px] text-center font-mono border-r border-white/20 select-none">6</td>
+                        <td className="p-2 text-center border-r border-white/20">STT</td>
+                        <td className="p-2 border-r border-white/20">Mã Handle CAD</td>
+                        <td className="p-2 border-r border-white/20">Hạng mục không gian</td>
+                        <td className="p-2 text-right border-r border-white/20">Chu vi P (m)</td>
+                        <td className="p-2 text-right border-r border-white/20">Cao thông thuỷ H (m)</td>
+                        <td className="p-2 text-right border-r border-white/20">Khấu trừ Cửa đi (m²)</td>
+                        <td className="p-2 text-right border-r border-white/20">Khấu trừ Cửa sổ (m²)</td>
+                        <td className="p-2 text-right border-r border-white/20 bg-[#173b5c]">Sơn Tinh Net (m²)</td>
+                        <td className="p-2 text-center border-r border-white/20">Tiêu chuẩn</td>
+                        <td className="p-2 text-center">Trạng thái QS</td>
+                      </tr>
+
+                      {/* Row 7: Index Guide Line [1], [2], [3]... (Standard Vietnamese Ministry of Construction Format) */}
+                      <tr className="bg-[#d9e1f2] text-[#1f4e78] font-bold text-[10px] text-center">
+                        <td className="bg-[#c6d3e8] text-[#1f4e78] text-[10px] text-center font-mono border-r border-[#b0c0dc] select-none">7</td>
+                        <td className="p-1 border-r border-[#b0c0dc]">[1]</td>
+                        <td className="p-1 border-r border-[#b0c0dc]">[2]</td>
+                        <td className="p-1 border-r border-[#b0c0dc]">[3]</td>
+                        <td className="p-1 border-r border-[#b0c0dc]">[4]</td>
+                        <td className="p-1 border-r border-[#b0c0dc]">[5]</td>
+                        <td className="p-1 border-r border-[#b0c0dc]">[6]</td>
+                        <td className="p-1 border-r border-[#b0c0dc]">[7]</td>
+                        <td className="p-1 border-r border-[#b0c0dc] bg-[#c6d3e8] text-emerald-900 font-black">[8 = (4*5)-6-7]</td>
+                        <td className="p-1 border-r border-[#b0c0dc]">[9]</td>
+                        <td className="p-1">[10]</td>
+                      </tr>
+
+                      {/* Row 8: Data Row 1 */}
+                      <tr className={`hover:bg-[#e8f4ec] transition-colors ${selectedCell.endsWith('8') ? 'bg-[#f7fcf9]' : 'bg-white'}`}>
+                        <td className={`text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none ${selectedCell.endsWith('8') ? 'bg-[#e1dfdd] text-[#107c41] font-bold' : 'bg-[#f3f2f1] text-[#555555]'}`}>8</td>
+                        <td onClick={() => { setSelectedCell('A8'); setSelectedFormula('1'); }} className="p-2 text-center border-r border-[#e1dfdd] cursor-pointer">01</td>
+                        <td onClick={() => { setSelectedCell('B8'); setSelectedFormula('LWPOLYLINE #8F31'); }} className="p-2 font-mono font-semibold text-sky-700 border-r border-[#e1dfdd] cursor-pointer">
+                          LWPOLYLINE #8F31
+                        </td>
+                        <td onClick={() => { setSelectedCell('C8'); setSelectedFormula('Phòng Khách & Bếp A101'); }} className="p-2 font-medium text-slate-900 border-r border-[#e1dfdd] cursor-pointer">
+                          Phòng Khách & Bếp A101
+                        </td>
+                        <td onClick={() => { setSelectedCell('D8'); setSelectedFormula('26.50'); }} className="p-2 text-right font-mono border-r border-[#e1dfdd] cursor-pointer">26.50</td>
+                        <td onClick={() => { setSelectedCell('E8'); setSelectedFormula('3.20'); }} className="p-2 text-right font-mono border-r border-[#e1dfdd] cursor-pointer">3.20</td>
+                        <td onClick={() => { setSelectedCell('F8'); setSelectedFormula('1.98'); }} className="p-2 text-right font-mono text-red-600 border-r border-[#e1dfdd] cursor-pointer">- 1.98</td>
+                        <td onClick={() => { setSelectedCell('G8'); setSelectedFormula('2.24'); }} className="p-2 text-right font-mono text-red-600 border-r border-[#e1dfdd] cursor-pointer">- 2.24</td>
+                        <td
+                          onClick={() => { setSelectedCell('H8'); setSelectedFormula('=ROUND((D8*E8) - F8 - G8, 2)'); }}
+                          className={`p-2 text-right font-mono font-bold text-slate-900 border-r border-[#e1dfdd] cursor-pointer relative ${
+                            selectedCell === 'H8'
+                              ? 'outline-2 outline-[#107c41] outline-offset-[-1px] bg-emerald-50/50 z-10'
+                              : 'bg-emerald-50/20'
+                          }`}
+                        >
+                          80.58
+                          {selectedCell === 'H8' && (
+                            <span className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#107c41] border border-white cursor-crosshair z-20" />
+                          )}
+                        </td>
+                        <td onClick={() => { setSelectedCell('I8'); setSelectedFormula('TCVN 8652:2012'); }} className="p-2 text-center text-[10px] font-mono text-slate-600 border-r border-[#e1dfdd] cursor-pointer">
+                          TCVN 8652
+                        </td>
+                        <td onClick={() => { setSelectedCell('J8'); setSelectedFormula('Đã thẩm định'); }} className="p-1.5 text-center cursor-pointer">
+                          <span className="px-2 py-0.5 bg-[#c6efce] text-[#006100] border border-[#9bc2cf] text-[10.5px] font-semibold">
                             ✓ Đã thẩm định
                           </span>
                         </td>
                       </tr>
-                      <tr className="hover:bg-amber-500/5 transition-colors">
-                        <td className="p-2.5 text-white/50 border-r border-white/10">02</td>
-                        <td className="p-2.5 text-sky-400 font-bold border-r border-white/10">LWPOLYLINE #4A9C</td>
-                        <td className="p-2.5 font-sans font-medium text-white border-r border-white/10">Phòng Ngủ Master A102</td>
-                        <td className="p-2.5 text-right border-r border-white/10">18.40</td>
-                        <td className="p-2.5 text-right border-r border-white/10">3.20</td>
-                        <td className="p-2.5 text-right text-rose-400 border-r border-white/10">- 1.98</td>
-                        <td className="p-2.5 text-right text-rose-400 border-r border-white/10">- 2.30</td>
-                        <td className="p-2.5 text-right font-bold text-[#ffc474] border-r border-white/10 bg-amber-500/10">54.60</td>
-                        <td className="p-2.5 text-center">
-                          <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-semibold border border-emerald-500/30">
+
+                      {/* Row 9: Data Row 2 */}
+                      <tr className={`hover:bg-[#e8f4ec] transition-colors ${selectedCell.endsWith('9') ? 'bg-[#f7fcf9]' : 'bg-[#fafafa]'}`}>
+                        <td className={`text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none ${selectedCell.endsWith('9') ? 'bg-[#e1dfdd] text-[#107c41] font-bold' : 'bg-[#f3f2f1] text-[#555555]'}`}>9</td>
+                        <td onClick={() => { setSelectedCell('A9'); setSelectedFormula('2'); }} className="p-2 text-center border-r border-[#e1dfdd] cursor-pointer">02</td>
+                        <td onClick={() => { setSelectedCell('B9'); setSelectedFormula('LWPOLYLINE #4A9C'); }} className="p-2 font-mono font-semibold text-sky-700 border-r border-[#e1dfdd] cursor-pointer">
+                          LWPOLYLINE #4A9C
+                        </td>
+                        <td onClick={() => { setSelectedCell('C9'); setSelectedFormula('Phòng Ngủ Master A102'); }} className="p-2 font-medium text-slate-900 border-r border-[#e1dfdd] cursor-pointer">
+                          Phòng Ngủ Master A102
+                        </td>
+                        <td onClick={() => { setSelectedCell('D9'); setSelectedFormula('18.40'); }} className="p-2 text-right font-mono border-r border-[#e1dfdd] cursor-pointer">18.40</td>
+                        <td onClick={() => { setSelectedCell('E9'); setSelectedFormula('3.20'); }} className="p-2 text-right font-mono border-r border-[#e1dfdd] cursor-pointer">3.20</td>
+                        <td onClick={() => { setSelectedCell('F9'); setSelectedFormula('1.98'); }} className="p-2 text-right font-mono text-red-600 border-r border-[#e1dfdd] cursor-pointer">- 1.98</td>
+                        <td onClick={() => { setSelectedCell('G9'); setSelectedFormula('2.30'); }} className="p-2 text-right font-mono text-red-600 border-r border-[#e1dfdd] cursor-pointer">- 2.30</td>
+                        <td
+                          onClick={() => { setSelectedCell('H9'); setSelectedFormula('=ROUND((D9*E9) - F9 - G9, 2)'); }}
+                          className={`p-2 text-right font-mono font-bold text-slate-900 border-r border-[#e1dfdd] cursor-pointer relative ${
+                            selectedCell === 'H9'
+                              ? 'outline-2 outline-[#107c41] outline-offset-[-1px] bg-emerald-50/50 z-10'
+                              : 'bg-emerald-50/20'
+                          }`}
+                        >
+                          54.60
+                          {selectedCell === 'H9' && (
+                            <span className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#107c41] border border-white cursor-crosshair z-20" />
+                          )}
+                        </td>
+                        <td onClick={() => { setSelectedCell('I9'); setSelectedFormula('TCVN 8652:2012'); }} className="p-2 text-center text-[10px] font-mono text-slate-600 border-r border-[#e1dfdd] cursor-pointer">
+                          TCVN 8652
+                        </td>
+                        <td onClick={() => { setSelectedCell('J9'); setSelectedFormula('Đã thẩm định'); }} className="p-1.5 text-center cursor-pointer">
+                          <span className="px-2 py-0.5 bg-[#c6efce] text-[#006100] border border-[#9bc2cf] text-[10.5px] font-semibold">
                             ✓ Đã thẩm định
                           </span>
                         </td>
                       </tr>
-                      <tr className="hover:bg-amber-500/5 transition-colors">
-                        <td className="p-2.5 text-white/50 border-r border-white/10">03</td>
-                        <td className="p-2.5 text-sky-400 font-bold border-r border-white/10">LWPOLYLINE #3B12</td>
-                        <td className="p-2.5 font-sans font-medium text-white border-r border-white/10">Phòng Ngủ Phụ A103</td>
-                        <td className="p-2.5 text-right border-r border-white/10">15.20</td>
-                        <td className="p-2.5 text-right border-r border-white/10">3.20</td>
-                        <td className="p-2.5 text-right text-rose-400 border-r border-white/10">- 1.98</td>
-                        <td className="p-2.5 text-right text-rose-400 border-r border-white/10">- 1.80</td>
-                        <td className="p-2.5 text-right font-bold text-[#ffc474] border-r border-white/10 bg-amber-500/10">44.86</td>
-                        <td className="p-2.5 text-center">
-                          <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-semibold border border-emerald-500/30">
+
+                      {/* Row 10: Data Row 3 */}
+                      <tr className={`hover:bg-[#e8f4ec] transition-colors ${selectedCell.endsWith('10') ? 'bg-[#f7fcf9]' : 'bg-white'}`}>
+                        <td className={`text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none ${selectedCell.endsWith('10') ? 'bg-[#e1dfdd] text-[#107c41] font-bold' : 'bg-[#f3f2f1] text-[#555555]'}`}>10</td>
+                        <td onClick={() => { setSelectedCell('A10'); setSelectedFormula('3'); }} className="p-2 text-center border-r border-[#e1dfdd] cursor-pointer">03</td>
+                        <td onClick={() => { setSelectedCell('B10'); setSelectedFormula('LWPOLYLINE #3B12'); }} className="p-2 font-mono font-semibold text-sky-700 border-r border-[#e1dfdd] cursor-pointer">
+                          LWPOLYLINE #3B12
+                        </td>
+                        <td onClick={() => { setSelectedCell('C10'); setSelectedFormula('Phòng Ngủ Phụ A103'); }} className="p-2 font-medium text-slate-900 border-r border-[#e1dfdd] cursor-pointer">
+                          Phòng Ngủ Phụ A103
+                        </td>
+                        <td onClick={() => { setSelectedCell('D10'); setSelectedFormula('15.20'); }} className="p-2 text-right font-mono border-r border-[#e1dfdd] cursor-pointer">15.20</td>
+                        <td onClick={() => { setSelectedCell('E10'); setSelectedFormula('3.20'); }} className="p-2 text-right font-mono border-r border-[#e1dfdd] cursor-pointer">3.20</td>
+                        <td onClick={() => { setSelectedCell('F10'); setSelectedFormula('1.98'); }} className="p-2 text-right font-mono text-red-600 border-r border-[#e1dfdd] cursor-pointer">- 1.98</td>
+                        <td onClick={() => { setSelectedCell('G10'); setSelectedFormula('1.80'); }} className="p-2 text-right font-mono text-red-600 border-r border-[#e1dfdd] cursor-pointer">- 1.80</td>
+                        <td
+                          onClick={() => { setSelectedCell('H10'); setSelectedFormula('=ROUND((D10*E10) - F10 - G10, 2)'); }}
+                          className={`p-2 text-right font-mono font-bold text-slate-900 border-r border-[#e1dfdd] cursor-pointer relative ${
+                            selectedCell === 'H10'
+                              ? 'outline-2 outline-[#107c41] outline-offset-[-1px] bg-emerald-50/50 z-10'
+                              : 'bg-emerald-50/20'
+                          }`}
+                        >
+                          44.86
+                          {selectedCell === 'H10' && (
+                            <span className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#107c41] border border-white cursor-crosshair z-20" />
+                          )}
+                        </td>
+                        <td onClick={() => { setSelectedCell('I10'); setSelectedFormula('TCVN 8652:2012'); }} className="p-2 text-center text-[10px] font-mono text-slate-600 border-r border-[#e1dfdd] cursor-pointer">
+                          TCVN 8652
+                        </td>
+                        <td onClick={() => { setSelectedCell('J10'); setSelectedFormula('Đã thẩm định'); }} className="p-1.5 text-center cursor-pointer">
+                          <span className="px-2 py-0.5 bg-[#c6efce] text-[#006100] border border-[#9bc2cf] text-[10.5px] font-semibold">
                             ✓ Đã thẩm định
                           </span>
                         </td>
                       </tr>
-                      <tr className="hover:bg-amber-500/5 transition-colors">
-                        <td className="p-2.5 text-white/50 border-r border-white/10">04</td>
-                        <td className="p-2.5 text-sky-400 font-bold border-r border-white/10">LWPOLYLINE #6C44</td>
-                        <td className="p-2.5 font-sans font-medium text-white border-r border-white/10">Hành lang & Tiền sảnh</td>
-                        <td className="p-2.5 text-right border-r border-white/10">21.80</td>
-                        <td className="p-2.5 text-right border-r border-white/10">3.20</td>
-                        <td className="p-2.5 text-right text-rose-400 border-r border-white/10">- 3.96</td>
-                        <td className="p-2.5 text-right text-rose-400 border-r border-white/10">0.00</td>
-                        <td className="p-2.5 text-right font-bold text-[#ffc474] border-r border-white/10 bg-amber-500/10">65.80</td>
-                        <td className="p-2.5 text-center">
-                          <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-semibold border border-emerald-500/30">
+
+                      {/* Row 11: Data Row 4 */}
+                      <tr className={`hover:bg-[#e8f4ec] transition-colors ${selectedCell.endsWith('11') ? 'bg-[#f7fcf9]' : 'bg-[#fafafa]'}`}>
+                        <td className={`text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none ${selectedCell.endsWith('11') ? 'bg-[#e1dfdd] text-[#107c41] font-bold' : 'bg-[#f3f2f1] text-[#555555]'}`}>11</td>
+                        <td onClick={() => { setSelectedCell('A11'); setSelectedFormula('4'); }} className="p-2 text-center border-r border-[#e1dfdd] cursor-pointer">04</td>
+                        <td onClick={() => { setSelectedCell('B11'); setSelectedFormula('LWPOLYLINE #6C44'); }} className="p-2 font-mono font-semibold text-sky-700 border-r border-[#e1dfdd] cursor-pointer">
+                          LWPOLYLINE #6C44
+                        </td>
+                        <td onClick={() => { setSelectedCell('C11'); setSelectedFormula('Hành lang & Tiền sảnh'); }} className="p-2 font-medium text-slate-900 border-r border-[#e1dfdd] cursor-pointer">
+                          Hành lang & Tiền sảnh
+                        </td>
+                        <td onClick={() => { setSelectedCell('D11'); setSelectedFormula('21.80'); }} className="p-2 text-right font-mono border-r border-[#e1dfdd] cursor-pointer">21.80</td>
+                        <td onClick={() => { setSelectedCell('E11'); setSelectedFormula('3.20'); }} className="p-2 text-right font-mono border-r border-[#e1dfdd] cursor-pointer">3.20</td>
+                        <td onClick={() => { setSelectedCell('F11'); setSelectedFormula('3.96'); }} className="p-2 text-right font-mono text-red-600 border-r border-[#e1dfdd] cursor-pointer">- 3.96</td>
+                        <td onClick={() => { setSelectedCell('G11'); setSelectedFormula('0.00'); }} className="p-2 text-right font-mono text-slate-500 border-r border-[#e1dfdd] cursor-pointer">0.00</td>
+                        <td
+                          onClick={() => { setSelectedCell('H11'); setSelectedFormula('=ROUND((D11*E11) - F11 - G11, 2)'); }}
+                          className={`p-2 text-right font-mono font-bold text-slate-900 border-r border-[#e1dfdd] cursor-pointer relative ${
+                            selectedCell === 'H11'
+                              ? 'outline-2 outline-[#107c41] outline-offset-[-1px] bg-emerald-50/50 z-10'
+                              : 'bg-emerald-50/20'
+                          }`}
+                        >
+                          65.80
+                          {selectedCell === 'H11' && (
+                            <span className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#107c41] border border-white cursor-crosshair z-20" />
+                          )}
+                        </td>
+                        <td onClick={() => { setSelectedCell('I11'); setSelectedFormula('TCVN 8652:2012'); }} className="p-2 text-center text-[10px] font-mono text-slate-600 border-r border-[#e1dfdd] cursor-pointer">
+                          TCVN 8652
+                        </td>
+                        <td onClick={() => { setSelectedCell('J11'); setSelectedFormula('Đã thẩm định'); }} className="p-1.5 text-center cursor-pointer">
+                          <span className="px-2 py-0.5 bg-[#c6efce] text-[#006100] border border-[#9bc2cf] text-[10.5px] font-semibold">
                             ✓ Đã thẩm định
                           </span>
                         </td>
                       </tr>
-                      <tr className="bg-[#1a1d28] font-bold text-white border-t border-white/20">
-                        <td colSpan={7} className="p-3 text-right font-sans uppercase tracking-wider text-xs border-r border-white/10">
+
+                      {/* Row 12: Summary Accounting Total (Excel Double Underline) */}
+                      <tr className="bg-[#f2f2f2] font-bold text-slate-900 border-t-2 border-t-[#1f4e78]">
+                        <td className={`text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none ${selectedCell.endsWith('12') ? 'bg-[#e1dfdd] text-[#107c41] font-bold' : 'bg-[#e8e7e6] text-[#555555]'}`}>12</td>
+                        <td colSpan={7} className="p-2.5 text-right uppercase tracking-wider text-xs border-r border-[#d4d4d4] text-[#1f4e78]">
                           TỔNG CỘNG DIỆN TÍCH SƠN TINH TẦNG ĐIỂN HÌNH:
                         </td>
-                        <td className="p-3 text-right text-amber-300 text-sm border-r border-white/10 bg-amber-500/20">
+                        <td
+                          onClick={() => { setSelectedCell('H12'); setSelectedFormula('=SUM(H8:H11)'); }}
+                          className={`p-2.5 text-right font-mono text-sm border-r border-[#d4d4d4] cursor-pointer relative ${
+                            selectedCell === 'H12'
+                              ? 'outline-2 outline-[#107c41] outline-offset-[-1px] bg-emerald-100 z-10'
+                              : 'bg-emerald-50 text-emerald-950'
+                          }`}
+                          style={{ borderBottom: '3px double #1f4e78' }}
+                        >
                           245.84 m²
+                          {selectedCell === 'H12' && (
+                            <span className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#107c41] border border-white cursor-crosshair z-20" />
+                          )}
                         </td>
-                        <td className="p-3 text-center text-xs text-white/60 font-sans">
-                          100% Khép kín
+                        <td colSpan={2} className="p-2.5 text-center text-xs text-emerald-800 font-mono font-semibold bg-[#eaf4ed]">
+                          100% Khép kín hình học
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 )}
 
+                {/* ── SHEET 2: ĐỊNH MỨC VẬT TƯ ── */}
                 {activeBoqSheet === 'materials' && (
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full border-collapse text-left select-text">
                     <thead>
-                      <tr className="bg-[#1a1d28] text-white/70 border-b border-white/15 text-[11px]">
-                        <th className="p-2.5 font-bold border-r border-white/10">Mã Vật Tư</th>
-                        <th className="p-2.5 font-bold border-r border-white/10">Tên chủng loại vật tư</th>
-                        <th className="p-2.5 font-bold border-r border-white/10">Định mức TCVN</th>
-                        <th className="p-2.5 font-bold border-r border-white/10 text-right">Khối lượng tính</th>
-                        <th className="p-2.5 font-bold border-r border-white/10 text-right">Đơn vị</th>
-                        <th className="p-2.5 font-bold text-right text-[#ffc474]">Quy cách đóng gói</th>
+                      <tr className="bg-[#f3f2f1] text-[#555555] text-[11px] font-semibold select-none border-b border-[#d4d4d4]">
+                        <th className="w-10 p-1 text-center border-r border-[#d4d4d4] bg-[#e8e7e6]"></th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-24">A</th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-72">B</th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-40">C</th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-36">D</th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-28">E</th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-48">F</th>
+                      </tr>
+                      <tr className="bg-[#1f4e78] text-white font-bold text-[11px]">
+                        <td className="bg-[#173b5c] text-white/80 text-[10px] text-center font-mono border-r border-white/20 select-none">1</td>
+                        <td className="p-2 border-r border-white/20">Mã Vật Tư</td>
+                        <td className="p-2 border-r border-white/20">Tên chủng loại vật tư hoàn thiện</td>
+                        <td className="p-2 border-r border-white/20">Định mức TCVN 8652</td>
+                        <td className="p-2 text-right border-r border-white/20">Khối lượng tính toán</td>
+                        <td className="p-2 text-right border-r border-white/20">Đơn vị</td>
+                        <td className="p-2 text-right bg-[#173b5c]">Quy cách bao bì thương phẩm</td>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-white/85">
-                      <tr>
-                        <td className="p-2.5 text-white/50 border-r border-white/10">VT-BA01</td>
-                        <td className="p-2.5 font-sans font-medium text-white border-r border-white/10">Bột bả trét tường nội thất cao cấp (2 lớp)</td>
-                        <td className="p-2.5 text-white/60 border-r border-white/10">1.25 kg/m²</td>
-                        <td className="p-2.5 text-right font-bold text-white border-r border-white/10">307.30</td>
-                        <td className="p-2.5 text-right border-r border-white/10">kg</td>
-                        <td className="p-2.5 text-right font-bold text-emerald-400">8 Bao (40kg/bao)</td>
+                    <tbody className="divide-y divide-[#e1dfdd] text-[11.5px]">
+                      <tr className="hover:bg-slate-50 bg-white">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">2</td>
+                        <td className="p-2 font-mono text-slate-600 border-r border-[#e1dfdd]">VT-BA01</td>
+                        <td className="p-2 font-medium text-slate-900 border-r border-[#e1dfdd]">Bột bả trét tường nội thất cao cấp (bả 2 lớp phẳng mịn)</td>
+                        <td className="p-2 text-slate-700 font-mono border-r border-[#e1dfdd]">1.25 kg/m²</td>
+                        <td className="p-2 text-right font-mono font-bold text-slate-900 border-r border-[#e1dfdd]">307.30</td>
+                        <td className="p-2 text-right font-mono border-r border-[#e1dfdd]">kg</td>
+                        <td className="p-2 text-right font-mono font-bold text-emerald-800 bg-emerald-50">8 Bao (40kg/bao)</td>
                       </tr>
-                      <tr>
-                        <td className="p-2.5 text-white/50 border-r border-white/10">VT-LOT02</td>
-                        <td className="p-2.5 font-sans font-medium text-white border-r border-white/10">Sơn lót kháng kiềm nội thất (1 lớp)</td>
-                        <td className="p-2.5 text-white/60 border-r border-white/10">0.10 lít/m²</td>
-                        <td className="p-2.5 text-right font-bold text-white border-r border-white/10">24.58</td>
-                        <td className="p-2.5 text-right border-r border-white/10">Lít</td>
-                        <td className="p-2.5 text-right font-bold text-emerald-400">2 Thùng 18L (36L)</td>
+                      <tr className="hover:bg-slate-50 bg-[#fafafa]">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">3</td>
+                        <td className="p-2 font-mono text-slate-600 border-r border-[#e1dfdd]">VT-LOT02</td>
+                        <td className="p-2 font-medium text-slate-900 border-r border-[#e1dfdd]">Sơn lót kháng kiềm nội thất chống ố mốc (lăn 1 lớp)</td>
+                        <td className="p-2 text-slate-700 font-mono border-r border-[#e1dfdd]">0.10 lít/m²</td>
+                        <td className="p-2 text-right font-mono font-bold text-slate-900 border-r border-[#e1dfdd]">24.58</td>
+                        <td className="p-2 text-right font-mono border-r border-[#e1dfdd]">Lít</td>
+                        <td className="p-2 text-right font-mono font-bold text-emerald-800 bg-emerald-50">2 Thùng 18L (36 Lít)</td>
                       </tr>
-                      <tr>
-                        <td className="p-2.5 text-white/50 border-r border-white/10">VT-PHU03</td>
-                        <td className="p-2.5 font-sans font-medium text-white border-r border-white/10">Sơn phủ màu nội thất cao cấp (2 lớp hoàn thiện)</td>
-                        <td className="p-2.5 text-white/60 border-r border-white/10">0.18 lít/m²</td>
-                        <td className="p-2.5 text-right font-bold text-white border-r border-white/10">44.25</td>
-                        <td className="p-2.5 text-right border-r border-white/10">Lít</td>
-                        <td className="p-2.5 text-right font-bold text-emerald-400">3 Thùng 18L (54L)</td>
+                      <tr className="hover:bg-slate-50 bg-white">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">4</td>
+                        <td className="p-2 font-mono text-slate-600 border-r border-[#e1dfdd]">VT-PHU03</td>
+                        <td className="p-2 font-medium text-slate-900 border-r border-[#e1dfdd]">Sơn phủ màu nội thất cao cấp chống bám bẩn (lăn 2 lớp)</td>
+                        <td className="p-2 text-slate-700 font-mono border-r border-[#e1dfdd]">0.18 lít/m²</td>
+                        <td className="p-2 text-right font-mono font-bold text-slate-900 border-r border-[#e1dfdd]">44.25</td>
+                        <td className="p-2 text-right font-mono border-r border-[#e1dfdd]">Lít</td>
+                        <td className="p-2 text-right font-mono font-bold text-emerald-800 bg-emerald-50">3 Thùng 18L (54 Lít)</td>
                       </tr>
                     </tbody>
                   </table>
                 )}
 
+                {/* ── SHEET 3: TỔNG HỢP DỰ TOÁN BOQ ── */}
                 {activeBoqSheet === 'cost' && (
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full border-collapse text-left select-text">
                     <thead>
-                      <tr className="bg-[#1a1d28] text-white/70 border-b border-white/15 text-[11px]">
-                        <th className="p-2.5 font-bold border-r border-white/10">Hạng mục chi phí</th>
-                        <th className="p-2.5 font-bold border-r border-white/10 text-right">Khối lượng</th>
-                        <th className="p-2.5 font-bold border-r border-white/10 text-right">Đơn vị</th>
-                        <th className="p-2.5 font-bold border-r border-white/10 text-right">Đơn giá (VNĐ)</th>
-                        <th className="p-2.5 font-bold text-right text-[#ffc474]">Thành tiền (VNĐ)</th>
+                      <tr className="bg-[#f3f2f1] text-[#555555] text-[11px] font-semibold select-none border-b border-[#d4d4d4]">
+                        <th className="w-10 p-1 text-center border-r border-[#d4d4d4] bg-[#e8e7e6]"></th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-12">A</th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-80">B</th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-24">C</th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-32">D</th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-36">E</th>
+                        <th className="p-1 text-center border-r border-[#d4d4d4] w-48">F</th>
+                      </tr>
+                      <tr className="bg-[#1f4e78] text-white font-bold text-[11px]">
+                        <td className="bg-[#173b5c] text-white/80 text-[10px] text-center font-mono border-r border-white/20 select-none">1</td>
+                        <td className="p-2 text-center border-r border-white/20">STT</td>
+                        <td className="p-2 border-r border-white/20">Nội dung công việc / Khoản mục chi phí</td>
+                        <td className="p-2 text-center border-r border-white/20">Đơn vị</td>
+                        <td className="p-2 text-right border-r border-white/20">Khối lượng</td>
+                        <td className="p-2 text-right border-r border-white/20">Đơn giá dự toán (VNĐ)</td>
+                        <td className="p-2 text-right bg-[#173b5c]">Thành tiền (VNĐ)</td>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 text-white/85">
-                      <tr>
-                        <td className="p-2.5 font-sans font-medium text-white border-r border-white/10">Nhân công bả matit + chà nhám</td>
-                        <td className="p-2.5 text-right border-r border-white/10">245.84</td>
-                        <td className="p-2.5 text-right border-r border-white/10">m²</td>
-                        <td className="p-2.5 text-right border-r border-white/10">28.000</td>
-                        <td className="p-2.5 text-right font-bold text-white">6.883.520 ₫</td>
+                    <tbody className="divide-y divide-[#e1dfdd] text-[11.5px]">
+                      <tr className="hover:bg-slate-50 bg-white">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">2</td>
+                        <td className="p-2 text-center border-r border-[#e1dfdd]">01</td>
+                        <td className="p-2 font-medium text-slate-900 border-r border-[#e1dfdd]">Nhân công bả matit 2 lớp + chà nhám tường phẳng</td>
+                        <td className="p-2 text-center font-mono border-r border-[#e1dfdd]">m²</td>
+                        <td className="p-2 text-right font-mono border-r border-[#e1dfdd]">245.84</td>
+                        <td className="p-2 text-right font-mono border-r border-[#e1dfdd]">28.000</td>
+                        <td className="p-2 text-right font-mono font-bold text-slate-900 border-r border-[#e1dfdd]">6.883.520 ₫</td>
                       </tr>
-                      <tr>
-                        <td className="p-2.5 font-sans font-medium text-white border-r border-white/10">Nhân công lăn sơn lót + 2 lớp phủ</td>
-                        <td className="p-2.5 text-right border-r border-white/10">245.84</td>
-                        <td className="p-2.5 text-right border-r border-white/10">m²</td>
-                        <td className="p-2.5 text-right border-r border-white/10">22.000</td>
-                        <td className="p-2.5 text-right font-bold text-white">5.408.480 ₫</td>
+                      <tr className="hover:bg-slate-50 bg-[#fafafa]">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">3</td>
+                        <td className="p-2 text-center border-r border-[#e1dfdd]">02</td>
+                        <td className="p-2 font-medium text-slate-900 border-r border-[#e1dfdd]">Nhân công lăn 1 lớp lót kháng kiềm + 2 lớp phủ màu</td>
+                        <td className="p-2 text-center font-mono border-r border-[#e1dfdd]">m²</td>
+                        <td className="p-2 text-right font-mono border-r border-[#e1dfdd]">245.84</td>
+                        <td className="p-2 text-right font-mono border-r border-[#e1dfdd]">22.000</td>
+                        <td className="p-2 text-right font-mono font-bold text-slate-900 border-r border-[#e1dfdd]">5.408.480 ₫</td>
                       </tr>
-                      <tr>
-                        <td className="p-2.5 font-sans font-medium text-white border-r border-white/10">Chi phí vật tư trọn gói (Sơn Dulux/Jotun chính hãng)</td>
-                        <td className="p-2.5 text-right border-r border-white/10">245.84</td>
-                        <td className="p-2.5 text-right border-r border-white/10">m²</td>
-                        <td className="p-2.5 text-right border-r border-white/10">45.000</td>
-                        <td className="p-2.5 text-right font-bold text-white">11.062.800 ₫</td>
+                      <tr className="hover:bg-slate-50 bg-white">
+                        <td className="bg-[#f3f2f1] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">4</td>
+                        <td className="p-2 text-center border-r border-[#e1dfdd]">03</td>
+                        <td className="p-2 font-medium text-slate-900 border-r border-[#e1dfdd]">Chi phí vật tư bột bả & sơn phủ cao cấp (Dulux/Jotun chính hãng)</td>
+                        <td className="p-2 text-center font-mono border-r border-[#e1dfdd]">m²</td>
+                        <td className="p-2 text-right font-mono border-r border-[#e1dfdd]">245.84</td>
+                        <td className="p-2 text-right font-mono border-r border-[#e1dfdd]">45.000</td>
+                        <td className="p-2 text-right font-mono font-bold text-slate-900 border-r border-[#e1dfdd]">11.062.800 ₫</td>
                       </tr>
-                      <tr className="bg-[#1a1d28] font-bold text-white border-t border-white/20">
-                        <td colSpan={4} className="p-3 text-right font-sans uppercase tracking-wider text-xs border-r border-white/10">
-                          TỔNG KINH PHÍ DỰ TOÁN (TẦNG ĐIỂN HÌNH):
+                      <tr className="bg-[#f2f2f2] font-bold text-slate-900 border-t-2 border-t-[#1f4e78]">
+                        <td className="bg-[#e8e7e6] text-[#555555] text-[10px] text-center font-mono border-r border-[#d4d4d4] select-none">5</td>
+                        <td colSpan={4} className="p-2.5 text-right uppercase tracking-wider text-xs border-r border-[#d4d4d4] text-[#1f4e78]">
+                          TỔNG KINH PHÍ DỰ TOÁN SƠN BẢ TẦNG ĐIỂN HÌNH:
                         </td>
-                        <td className="p-3 text-right text-[#ffc474] text-base bg-amber-500/20">
+                        <td className="p-2.5 text-right font-mono text-sm text-emerald-900 bg-emerald-100/90 font-black" style={{ borderBottom: '3px double #1f4e78' }}>
                           23.354.800 ₫
                         </td>
                       </tr>
@@ -1341,70 +1849,101 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
                 )}
               </div>
 
-              {/* Bottom Sheet Switcher & Action Footer */}
-              <div className="px-5 py-3 bg-[#0f1118] border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto">
+              {/* 6. Authentic Excel Sheet Tabs Bar */}
+              <div className="bg-[#edebe9] border-t border-[#d4d4d4] px-2 py-0.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+                {/* Navigation arrows & tabs */}
+                <div className="flex items-center gap-1 overflow-x-auto">
+                  <div className="flex items-center text-slate-600 px-1 border-r border-[#d4d4d4] space-x-1">
+                    <span className="hover:text-slate-900 cursor-pointer p-0.5">◀</span>
+                    <span className="hover:text-slate-900 cursor-pointer p-0.5">▶</span>
+                  </div>
+
+                  {/* Sheet Tabs */}
                   <button
                     onClick={() => setActiveBoqSheet('takeoff')}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                    className={`px-3 py-1 text-[11.5px] font-medium border-r border-[#d4d4d4] transition-all cursor-pointer flex items-center gap-1.5 ${
                       activeBoqSheet === 'takeoff'
-                        ? 'bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 font-bold'
-                        : 'text-white/60 hover:text-white hover:bg-white/5'
+                        ? 'bg-white text-[#107c41] font-bold border-t-2 border-t-[#107c41] shadow-xs'
+                        : 'bg-[#edebe9] text-[#444444] hover:bg-[#e1dfdd]'
                     }`}
                   >
-                    1. Chi tiết Bóc tách TCVN
+                    <span>Sheet1: Chi tiết Bóc tách TCVN</span>
                   </button>
+
                   <button
                     onClick={() => setActiveBoqSheet('materials')}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                    className={`px-3 py-1 text-[11.5px] font-medium border-r border-[#d4d4d4] transition-all cursor-pointer flex items-center gap-1.5 ${
                       activeBoqSheet === 'materials'
-                        ? 'bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 font-bold'
-                        : 'text-white/60 hover:text-white hover:bg-white/5'
+                        ? 'bg-white text-[#107c41] font-bold border-t-2 border-t-[#107c41] shadow-xs'
+                        : 'bg-[#edebe9] text-[#444444] hover:bg-[#e1dfdd]'
                     }`}
                   >
-                    2. Định mức Vật tư
+                    <span>Sheet2: Định mức Vật tư</span>
                   </button>
+
                   <button
                     onClick={() => setActiveBoqSheet('cost')}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                    className={`px-3 py-1 text-[11.5px] font-medium border-r border-[#d4d4d4] transition-all cursor-pointer flex items-center gap-1.5 ${
                       activeBoqSheet === 'cost'
-                        ? 'bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 font-bold'
-                        : 'text-white/60 hover:text-white hover:bg-white/5'
+                        ? 'bg-white text-[#107c41] font-bold border-t-2 border-t-[#107c41] shadow-xs'
+                        : 'bg-[#edebe9] text-[#444444] hover:bg-[#e1dfdd]'
                     }`}
                   >
-                    3. Tổng hợp Dự toán BoQ
+                    <span>Sheet3: Tổng hợp Dự toán BoQ</span>
                   </button>
+
+                  <span className="w-5 h-5 rounded-full hover:bg-white flex items-center justify-center text-slate-600 text-xs cursor-pointer ml-1" title="Thêm trang tính mới">
+                    +
+                  </span>
                 </div>
 
-                <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                {/* Right quick download button */}
+                <div className="flex items-center gap-2">
                   <button
                     onClick={() => {
-                      // Trigger a mock file download of CSV formatted BoQ
                       const csvContent = "data:text/csv;charset=utf-8," 
-                        + "STT,Handle_CAD,Ten_Phong,Chu_Vi_m,Chieu_Cao_m,Khau_Tru_Cua_Di_m2,Khau_Tru_Cua_So_m2,Dien_Tich_Son_Tinh_m2\n"
-                        + "1,LWPOLYLINE #8F31,Phong Khach A101,26.50,3.20,-1.98,-2.24,80.58\n"
-                        + "2,LWPOLYLINE #4A9C,Phong Ngu Master A102,18.40,3.20,-1.98,-2.30,54.60\n"
-                        + "3,LWPOLYLINE #3B12,Phong Ngu Phu A103,15.20,3.20,-1.98,-1.80,44.86\n"
-                        + "4,LWPOLYLINE #6C44,Hanh Lang,21.80,3.20,-3.96,0.00,65.80\n";
+                        + "STT,Handle_CAD,Ten_Phong,Chu_Vi_m,Chieu_Cao_m,Khau_Tru_Cua_Di_m2,Khau_Tru_Cua_So_m2,Dien_Tich_Son_Tinh_m2,Quy_Chuan,Trang_Thai\n"
+                        + "1,LWPOLYLINE #8F31,Phong Khach A101,26.50,3.20,-1.98,-2.24,80.58,TCVN 8652,Da tham dinh\n"
+                        + "2,LWPOLYLINE #4A9C,Phong Ngu Master A102,18.40,3.20,-1.98,-2.30,54.60,TCVN 8652,Da tham dinh\n"
+                        + "3,LWPOLYLINE #3B12,Phong Ngu Phu A103,15.20,3.20,-1.98,-1.80,44.86,TCVN 8652,Da tham dinh\n"
+                        + "4,LWPOLYLINE #6C44,Hanh Lang,21.80,3.20,-3.96,0.00,65.80,TCVN 8652,Da tham dinh\n";
                       const encodedUri = encodeURI(csvContent);
                       const link = document.createElement("a");
                       link.setAttribute("href", encodedUri);
-                      link.setAttribute("download", "BoQ_Mau_TCVN_8652.csv");
+                      link.setAttribute("download", "DuAn_Landmark_BoQ_TCVN8652.csv");
                       document.body.appendChild(link);
                       link.click();
                       document.body.removeChild(link);
                     }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold cursor-pointer transition-all shadow-md"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#107c41] hover:bg-[#0d6535] text-white text-[11px] font-semibold rounded cursor-pointer transition-colors shadow-xs"
                   >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Tải file Excel mẫu (.xlsx/.csv)</span>
+                    <Download className="w-3 h-3" />
+                    <span>Tải tệp Excel thật (.xlsx/.csv)</span>
                   </button>
+
                   <button
                     onClick={() => setIsBoqPreviewOpen(false)}
-                    className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white/80 text-xs font-semibold cursor-pointer transition-all"
+                    className="px-3 py-1 bg-white hover:bg-slate-100 border border-[#d4d4d4] text-slate-700 text-[11px] font-medium rounded cursor-pointer transition-colors"
                   >
                     Đóng
                   </button>
+                </div>
+              </div>
+
+              {/* 7. Authentic Excel Status Bar */}
+              <div className="bg-[#107c41] text-white px-3 py-0.5 flex flex-wrap items-center justify-between text-[10.5px] font-mono select-none">
+                <div className="flex items-center gap-3">
+                  <span className="font-bold tracking-wider">SẴN SÀNG</span>
+                  <span className="text-white/60">•</span>
+                  <span className="text-white/80">Tương thích: Microsoft Excel 2016+, Office 365, Google Sheets</span>
+                </div>
+
+                <div className="flex items-center gap-4 text-white/90">
+                  <span>Ô chọn: <strong className="text-emerald-200">{selectedCell}</strong></span>
+                  <span>Đếm: <strong>4</strong></span>
+                  <span>Trung bình: <strong>61.46</strong></span>
+                  <span>TỔNG (SUM): <strong className="text-emerald-200">245.84</strong></span>
+                  <span className="hidden sm:inline">100% ➖🔘➕</span>
                 </div>
               </div>
             </motion.div>

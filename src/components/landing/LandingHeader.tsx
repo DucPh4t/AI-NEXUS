@@ -57,6 +57,12 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
               Hiệu quả ROI
             </a>
             <a
+              href="#social-proof"
+              className="hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-full transition-all text-white/70"
+            >
+              Tín nhiệm
+            </a>
+            <a
               href="#cad-security"
               className="hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-full transition-all text-white/70"
             >
@@ -125,6 +131,13 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
                 className="px-3 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors"
               >
                 Hiệu quả ROI
+              </a>
+              <a
+                href="#social-proof"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors"
+              >
+                Tín nhiệm
               </a>
               <a
                 href="#cad-security"
