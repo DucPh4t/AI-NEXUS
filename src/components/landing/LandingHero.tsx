@@ -591,47 +591,34 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           </div>
         </div>
 
-        {/* Feature Highlights Grid (OpenHero Dark Monolithic Cards) */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-          <div className="dense-panel p-6 rounded-2xl transition-transform hover:-translate-y-1">
-            <div className="w-10 h-10 rounded-xl bg-amber-400/10 border border-amber-400/20 text-[#ffc474] flex items-center justify-center mb-4">
-              <FileCode className="w-5 h-5" />
-            </div>
-            <h3 className="text-base font-bold text-white mb-2">Đọc vector DXF nguyên bản</h3>
-            <p className="text-sm text-white/60 leading-relaxed font-sans-tight">
-              Không dùng phương pháp quét ảnh mờ nhạt (raster OCR). Đọc trực tiếp các thực thể LWPOLYLINE, LINE, TEXT và HATCH để đảm bảo sai số hình học bằng 0.
-            </p>
+        {/* Architectural Engine Status Strip */}
+        <div className="mt-8 p-4 sm:p-5 rounded-2xl border border-white/10 bg-[#12141a] grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div className="md:border-r border-white/10 pr-2">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-white/50 block">Định dạng nạp</span>
+            <span className="font-mono text-xs sm:text-sm font-bold text-white mt-1 block">AutoCAD DXF AC1032</span>
           </div>
-
-          <div className="dense-panel p-6 rounded-2xl transition-transform hover:-translate-y-1">
-            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/15 text-white/90 flex items-center justify-center mb-4">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <h3 className="text-base font-bold text-white mb-2">Quy trình kiểm định kỹ thuật (HITL)</h3>
-            <p className="text-sm text-white/60 leading-relaxed font-sans-tight">
-              AI đóng vai trò trợ lý bóc tách tốc độ cao. Kỹ sư luôn nắm quyền kiểm soát tối cao: xác nhận, kéo thả đỉnh hình học, hoặc từ chối từng phòng trước khi xuất hồ sơ.
-            </p>
+          <div className="md:border-r border-white/10 pr-2">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-white/50 block">Nhận diện Layer</span>
+            <span className="font-mono text-xs sm:text-sm font-bold text-[#ffc474] mt-1 block">A-WALL · A-DOOR · A-WINDOW</span>
           </div>
-
-          <div className="dense-panel p-6 rounded-2xl transition-transform hover:-translate-y-1">
-            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/15 text-white/90 flex items-center justify-center mb-4">
-              <Database className="w-5 h-5" />
-            </div>
-            <h3 className="text-base font-bold text-white mb-2">Truy xuất nguồn gốc hai chiều</h3>
-            <p className="text-sm text-white/60 leading-relaxed font-sans-tight">
-              Mỗi con số trên bảng dự toán BOQ đều liên kết trực tiếp với ID thực thể CAD, giúp quá trình bảo vệ dự toán với Chủ đầu tư và Tư vấn giám sát diễn ra minh bạch.
-            </p>
+          <div className="md:border-r border-white/10 pr-2">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-white/50 block">Snapping Khe hở</span>
+            <span className="font-mono text-xs sm:text-sm font-bold text-emerald-400 mt-1 block">Tự động vá ≤ 50mm</span>
+          </div>
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-white/50 block">Chuẩn nghiệm thu</span>
+            <span className="font-mono text-xs sm:text-sm font-bold text-white mt-1 block">TCVN 8652:2012</span>
           </div>
         </div>
 
         {/* Scroll down prompt */}
-        <div className="mt-12 flex flex-col items-center justify-center text-center">
+        <div className="mt-10 flex flex-col items-center justify-center text-center">
           <button
             onClick={scrollToStory}
-            className="group flex flex-col items-center gap-1.5 text-xs font-semibold text-white/50 hover:text-[#ffc474] transition-colors cursor-pointer"
+            className="group inline-flex items-center gap-2 text-xs font-semibold text-white/60 hover:text-[#ffc474] py-2 px-5 rounded-full hover:bg-white/5 transition-all cursor-pointer border border-transparent hover:border-white/10"
           >
-            <span>Cuộn xuống khám phá quy trình kỹ thuật</span>
-            <ChevronDown className="w-4 h-4 text-[#ffc474] animate-bounce" />
+            <span>Khám phá quy trình bóc tách & đối chiếu thực tế</span>
+            <ChevronDown className="w-3.5 h-3.5 text-[#ffc474] animate-bounce" />
           </button>
         </div>
       </div>

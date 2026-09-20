@@ -264,7 +264,8 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
           3. BỘ BA CÔNG NGHỆ LÕI (INTERACTIVE CORE ENGINEERING TABS)
           (Gộp 3 section TCVN 8652, HITL và 2-Way Traceability thành 1 bảng điều khiển tương tác)
       ───────────────────────────────────────────────────────────── */}
-      <section id="detection" className="py-16 md:py-24 border-b border-white/10 bg-[#0c0e12] relative">
+      <section id="detection" className="py-16 md:py-24 border-b border-white/10 bg-[#0c0e12] relative scroll-mt-20">
+        <div id="estimate" className="scroll-mt-24" />
         <div id="traceability" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeInUp} className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
             <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#ffc474] bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
@@ -287,7 +288,7 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
                     : 'text-white/70 hover:text-white hover:bg-white/5'
                 }`}
               >
-                1. Chuẩn TCVN 8652:2012
+                1. Chuẩn TCVN 8652 & Dự toán BoQ
               </button>
               <button
                 onClick={() => setActiveFeatureTab('hitl')}
@@ -322,7 +323,7 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
             >
               <div>
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#ffc474]">
-                  Quy chuẩn Quốc gia // Khấu trừ Tự động
+                  Quy chuẩn Quốc gia // Khấu trừ Tự động & BoQ
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-serif-cormorant font-semibold text-white mt-2">
                   Khấu trừ chuẩn xác diện tích lỗ mở cửa đi & cửa sổ
@@ -345,10 +346,10 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
                 </div>
               </div>
 
-              <div className="p-5 sm:p-6 rounded-xl bg-[#181b24] border border-white/10 space-y-4 font-mono text-xs">
+              <div className="p-5 sm:p-6 rounded-xl bg-[#181b24] border border-white/10 space-y-3.5 font-mono text-xs">
                 <div className="flex items-center justify-between pb-3 border-b border-white/10">
                   <span className="text-white/60">Ví dụ Kiểm định:</span>
-                  <span className="text-[#ffc474] font-bold">Phòng Khách A101</span>
+                  <span className="text-[#ffc474] font-bold">Phòng Khách A101 (Handle #8F31)</span>
                 </div>
                 <div className="flex justify-between text-white/80">
                   <span>Chu vi hình học tường:</span>
@@ -363,12 +364,26 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
                   <span className="text-white font-bold">84.80 m²</span>
                 </div>
                 <div className="flex justify-between text-rose-400">
-                  <span>Diện tích khấu trừ cửa (2 cửa):</span>
+                  <span>Khấu trừ cửa (D1 + W1):</span>
                   <span className="font-bold">- 4.22 m²</span>
                 </div>
-                <div className="pt-3 border-t border-white/10 flex justify-between text-emerald-400 font-bold text-sm">
-                  <span>Diện tích sơn tinh (Net Paint Area):</span>
+                <div className="py-2.5 px-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex justify-between text-emerald-400 font-bold text-xs sm:text-sm">
+                  <span>Diện tích sơn tinh (Net Area):</span>
                   <span>80.58 m²</span>
+                </div>
+                <div className="pt-2 border-t border-white/10 grid grid-cols-2 gap-2 text-[11px] text-white/60">
+                  <div>
+                    <span>Định mức sơn lót (1 lớp):</span>
+                    <span className="text-white font-semibold block">0.45 thùng 18L</span>
+                  </div>
+                  <div>
+                    <span>Định mức sơn phủ (2 lớp):</span>
+                    <span className="text-white font-semibold block">0.90 thùng 18L</span>
+                  </div>
+                  <div className="col-span-2 pt-1 flex justify-between text-amber-300 font-bold text-xs">
+                    <span>Dự toán BoQ tạm tính (65k/m²):</span>
+                    <span>5.237.700 ₫</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
